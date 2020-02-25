@@ -10,6 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
+
 @Controller
 public class AuthorizeController {
     @Value("client_id")
@@ -24,7 +29,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code,
                            @RequestParam("state") String state,
-                           Model model) throws JsonProcessingException {
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws JsonProcessingException {
 //        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
 //        accessTokenDTO.setClient_id(client_id);
 //        accessTokenDTO.setClient_secret(client_secret);
@@ -34,9 +40,13 @@ public class AuthorizeController {
 //        String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
 //        System.out.println(accessToken);
 //        model.addAttribute("GitHubUser",gitHubUser);
-        model.addAttribute("user","GreyWolf");
+        //现在那个okHttp出现错误 先用随机数代替token作为认证标准
+          int random = (int)Math.random()*10;
+        System.out.println(random);
+          response.addCookie(new Cookie("GitHubUserCookie",String.valueOf(random)));
+//            request.getSession().setAttribute("GitHubUserCookie",String.valueOf(random));
+            request.getSession().setAttribute("user","GreyWolf");
         return "index";
     }
-
 
 }

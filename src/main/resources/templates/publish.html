@@ -4,45 +4,52 @@
     <meta charset="UTF-8">
     <title>小新社区发布</title>
     <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
-    <link rel="stylesheet" href="css/publish.css">
+    <link rel="stylesheet" th:href="@{css/publish.css}">
 </head>
 <body class="body">
 <ul class="layui-nav" lay-filter="">
+<li class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a href="">小新社区</a></li>
-    <li class="layui-nav-item" style="margin-left: 20px">
-    <form class="layui-form" action=""><input type="text" name="title" placeholder="搜索问题" autocomplete="off" class="layui-input"></form></li>
+    <li class="layui-nav-item" style="margin-left: 15px"><form class="layui-form" action=""><input type="text" name="title" placeholder="搜索问题" autocomplete="off" class="layui-input"></form></li>
     <li class="layui-nav-item" style="margin-left: 15px"><button class="layui-btn" lay-submit lay-filter="formDemo" >立即提交</button></li>
     <li class="layui-nav-item" style="margin-left: 15px"><a href="">大数据</a></li>
     <li class="layui-nav-item" style="float: right">
-        <a href="" th:text="${user}"><img src="" class="layui-nav-img"></a>
+        <a href="" th:text="${session.user}"><img src="" class="layui-nav-img"></a>
         <dl class="layui-nav-child">
             <dd><a href="javascript:;">个人信息</a></dd>
             <dd><a href="javascript:;">安全管理</a></dd>
             <dd><a href="javascript:;">注销登陆</a></dd>
         </dl>
     </li>
-    <li class="layui-nav-item" style="float: right"><a href="https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登陆</a></li>
 </ul>
 <div class="layui-container container container2">
     <div class="layui-row row1">
         <div class="layui-col-md9">
             <h1 class="lab"><i class="layui-icon layui-icon-add-1"></i>发起提问</h1>
             <hr>
-            <form class="layui-form" action="">
+            <form class="layui-form" action="/publish" method="post">
                 <div class="layui-form-item">
                     <h2 class="lab">问题标题（简单扼要）：</h2>
                         <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
                 <h2 class="lab">问题补充（必填，请按照右侧提示）</h2>
-                    <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea textArea"></textarea>
+                    <textarea name="description" required lay-verify="required" placeholder="请输入" class="layui-textarea textArea"></textarea>
                 <h2 class="lab">添加标签：</h2>
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入标签，以逗号（，）隔开" autocomplete="off" class="layui-input">
-                    <li class="layui-nav-item btn"><button class="layui-btn" lay-submit lay-filter="formDemo" >发布</button></li>
+                    <input type="text" name="tag" required lay-verify="required" placeholder="请输入标签，以逗号（，）隔开" autocomplete="off" class="layui-input">
+                    <li class="layui-nav-item btn"><button class="layui-btn" lay-submit lay-filter="publish" >发布</button></li>
                 </div>
-
             </form>
         </div>
         <div class="layui-col-md3">
             <h1 class="lab2">问题发起指南</h1>
+            <h3 class="fon">问题标准：请使用精简的语言描述您发布的问题，不超过50字</h3>
+            <h3 class="fon">问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料</h3>
+            <h3 class="fon2">服务器运行环境信息</h3>
+            <h3 class="fon2">软件版本问题</h3>
+            <h3 class="fon2">问题发生的上下文信息</h3>
+            <h3 class="fon2">可以完整复现问题的代码</h3>
+            <h3 class="fon2">补充完整的异常和错误信息</h3>
+            <h3 class="fon2">注意阅读格式友好，代码和异常信息请用代码标签格式化张贴：</h3>
+            <h3 class="fon">选择标签：选择一个或者多个何使的标签，不超过10个字</h3>
         </div>
     </div>
 </div>
@@ -52,6 +59,15 @@
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
+        var form = layui.form;
+        //监听提交
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
     });
 </script>
 

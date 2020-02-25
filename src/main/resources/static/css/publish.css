@@ -1,4 +1,12 @@
-
+.fon{
+    margin-top: 4px;
+    font-style: oblique;
+    color: gray;
+}
+.fon2{
+    margin-top: 4px;
+    font-style: oblique;
+}
 .body{
     background: gainsboro;
 }
