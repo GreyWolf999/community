@@ -2,7 +2,6 @@ package com.greywolf.community.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.greywolf.community.dbo.AccessTokenDTO;
-import com.greywolf.community.dbo.GitHubUser;
 import com.greywolf.community.provide.AccessTokenProvide;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,14 +25,16 @@ public class AuthorizeController {
     public String callback(@RequestParam("code") String code,
                            @RequestParam("state") String state,
                            Model model) throws JsonProcessingException {
-        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-        accessTokenDTO.setClient_id(client_id);
-        accessTokenDTO.setClient_secret(client_secret);
-        accessTokenDTO.setCode(code);
-        accessTokenDTO.setClient_secret(redirect_uri);
-        accessTokenDTO.setState(state);
-        GitHubUser gitHubUser = accessTokenProvide.gitHubUser(accessTokenProvide.getAccessToken(accessTokenDTO));
-        model.addAttribute("GitHubUser",gitHubUser);
+//        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+//        accessTokenDTO.setClient_id(client_id);
+//        accessTokenDTO.setClient_secret(client_secret);
+//        accessTokenDTO.setCode(code);
+//        accessTokenDTO.setClient_secret(redirect_uri);
+//        accessTokenDTO.setState(state);
+//        String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
+//        System.out.println(accessToken);
+//        model.addAttribute("GitHubUser",gitHubUser);
+        model.addAttribute("user","GreyWolf");
         return "index";
     }
 

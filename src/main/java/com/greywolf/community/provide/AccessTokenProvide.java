@@ -7,7 +7,6 @@ import com.greywolf.community.dbo.GitHubUser;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 
 @Component
@@ -20,7 +19,7 @@ public class AccessTokenProvide {
         MediaType JSON
                 = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
-            RequestBody body = RequestBody.create(JSON,objectMapper.writeValueAsString(accessTokenDTO));
+            RequestBody body = RequestBody.create(objectMapper.writeValueAsString(accessTokenDTO),JSON);
             Request request = new Request.Builder()
                     .url("https://github.com/login/oauth/access_token")
                     .post(body)
@@ -33,7 +32,7 @@ public class AccessTokenProvide {
             }
             return AccessToken;
     }
-    public GitHubUser gitHubUser(String accessToken) {
+    public GitHubUser getGitHubUser(String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user?access_token="+accessToken)
