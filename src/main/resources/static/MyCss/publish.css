@@ -29,6 +29,7 @@
 }
 .container2{
     background-color: aliceblue;
+    width: 1300px;
 }
 .row1{
     background-color: beige;
@@ -37,4 +38,22 @@
 .lab2{
     margin-left: 15px;
     margin-top: 20px;
+}
+.lab3{
+    margin-left: 15px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+.media-object{
+    width: 60px;
+    height: 60px;
+}
+.fontsize{
+    font-size: initial;
+}
+.iconSize{
+    font-size:37px
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Random;
 
 @Controller
 public class AuthorizeController {
@@ -31,14 +30,14 @@ public class AuthorizeController {
                            @RequestParam("state") String state,
                            HttpServletRequest request,
                            HttpServletResponse response) throws JsonProcessingException {
-//        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
-//        accessTokenDTO.setClient_id(client_id);
-//        accessTokenDTO.setClient_secret(client_secret);
-//        accessTokenDTO.setCode(code);
-//        accessTokenDTO.setClient_secret(redirect_uri);
-//        accessTokenDTO.setState(state);
-//        String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
-//        System.out.println(accessToken);
+        AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+        accessTokenDTO.setClient_id(client_id);
+        accessTokenDTO.setClient_secret(client_secret);
+        accessTokenDTO.setCode(code);
+        accessTokenDTO.setClient_secret(redirect_uri);
+        accessTokenDTO.setState(state);
+        String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
+        System.out.println(accessToken);
 //        model.addAttribute("GitHubUser",gitHubUser);
         //现在那个okHttp出现错误 先用随机数代替token作为认证标准
           int random = (int)Math.random()*10;

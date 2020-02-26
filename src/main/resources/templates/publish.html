@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>小新社区发布</title>
     <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
-    <link rel="stylesheet" th:href="@{css/publish.css}">
+    <link rel="stylesheet" th:href="@{MyCss/publish.css}">
 </head>
 <body class="body">
 <ul class="layui-nav" lay-filter="">
@@ -25,7 +25,7 @@
 <div class="layui-container container container2">
     <div class="layui-row row1">
         <div class="layui-col-md9">
-            <h1 class="lab"><i class="layui-icon layui-icon-add-1"></i>发起提问</h1>
+            <h1 class="lab"><i class="layui-icon layui-icon-add-1 iconSize"></i>发起提问</h1>
             <hr>
             <form class="layui-form" action="/publish" method="post">
                 <div class="layui-form-item">
@@ -40,16 +40,18 @@
             </form>
         </div>
         <div class="layui-col-md3">
+            <div class="lab3">
             <h1 class="lab2">问题发起指南:</h1>
-            <h3 class="fon">问题标准：请使用精简的语言描述您发布的问题，不超过50字</h3>
-            <h3 class="fon">问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料</h3>
-            <h3 class="fon2">服务器运行环境信息</h3>
-            <h3 class="fon2">软件版本问题</h3>
-            <h3 class="fon2">问题发生的上下文信息</h3>
-            <h3 class="fon2">可以完整复现问题的代码</h3>
-            <h3 class="fon2">补充完整的异常和错误信息</h3>
-            <h3 class="fon2">注意阅读格式友好，代码和异常信息请用代码标签格式化张贴：</h3>
-             <h3 class="fon"> 选择标签：选择一个或者多个何使的标签，不超过10个字</h3>
+            <h3 class="fon"><span class="layui-badge-dot layui-bg-gray"></span>问题标准：请使用精简的语言描述您发布的问题，不超过50字</h3>
+            <h3 class="fon"><span class="layui-badge-dot layui-bg-gray"></span>问题补充：详细补充您的问题内容，并确保问题描述清晰直观，并提供一些相关的资料</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>服务器运行环境信息</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>软件版本问题</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>问题发生的上下文信息</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>可以完整复现问题的代码</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>补充完整的异常和错误信息</h3>
+            <h3 class="fon2"><span class="layui-badge-dot layui-bg-black"></span>注意阅读格式友好，代码和异常信息请用代码标签格式化张贴:</h3>
+            <h3 class="fon"><span class="layui-badge-dot layui-bg-gray"></span>选择标签：选择一个或者多个何使的标签，不超过10个字</h3>
+            </div>
         </div>
     </div>
 </div>

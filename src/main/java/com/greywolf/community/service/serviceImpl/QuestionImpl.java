@@ -13,8 +13,8 @@ public class QuestionImpl implements QuestionService {
     @Override
     public void doPublish(Question question,Integer id) {
         question.setCreator(id);
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
+        question.setGmt_creat(System.currentTimeMillis());
+        question.setGmt_modified(question.getGmt_creat());
         questionMapper.create(question);
     }
 
