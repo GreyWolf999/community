@@ -20,14 +20,15 @@
     <li class="layui-nav-item" style="margin-left: 15px"><a href="">大数据</a></li>
     <li class="layui-nav-item" style="float: right" th:if="${session.user != null}">
         <a href="" th:text="${session.user}"><img src="" class="layui-nav-img"></a>
-        <dl class="layui-nav-child">
+        <dl class="layui-nav-child" th:if="${session.user != null}">
             <dd><a href="javascript:;">个人信息</a></dd>
             <dd><a href="javascript:;">安全管理</a></dd>
             <dd><a href="javascript:;">注销登陆</a></dd>
         </dl>
     </li>
-    <li class="layui-nav-item" style="float: right" th:if="${session.user != null}"><a href="/publish">发起提问</a></li>
-    <li th:if="${session.user == null}" class="layui-nav-item" style="float: right"><a href="https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登陆</a></li>
+    <li class="layui-nav-item" style="float: right"><a href="/publish">发起提问</a></li>
+    <li th:if="${session.user == null}" class="layui-nav-item" style="float: right"><a href="#" id="register">注册</a></li>
+    <li th:if="${session.user == null}" class="layui-nav-item" style="float: right"><a href="#" id="login">登陆</a></li>
 </ul>
 <div class="layui-container container container2">
     <div class="layui-row row1">
@@ -64,9 +65,32 @@
     });
     layui.use('layer', function(){
         var layer = layui.layer;
-        layer.msg('hello');
+        layer.msg('欢迎来到小新社区');
     });
 
+    function shut(){
+        $(".layui-layer-close1").trigger('click');
+    }
+    $('#login').on('click', function(){
+        layer.open({
+            type:2
+            ,title:'登陆框'
+            ,content:['/goLogin','no',]
+            ,area: ['500px', '62%']
+            ,shadeClose:true
+            ,offset: 'auto'
+        });
+    });
+    $('#register').on('click', function(){
+        layer.open({
+            type:2
+            ,title:'登陆框'
+            ,content:['/goRegister','no',]
+            ,area: ['500px', '62%']
+            ,shadeClose:true
+            ,offset: 'auto'
+        });
+    });
 </script>
 
 </body>

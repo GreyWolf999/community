@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小新社区</title>
+    <link th:href="@{webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <script th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
+    <link rel="stylesheet" th:href="@{MyCss/publish.css}">
+</head>
+<body>
+<form style="margin-left: 25px;">
+    <div class="form-group login">
+        <label for="exampleInputEmail1">用户名：</label>
+        <input type="text" class="form-control " style="width: 450px;" id="exampleInputEmail1" placeholder="请输入用户名">
+    </div>
+    <div class="form-group ">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control " style="width: 450px;" id="exampleInputPassword1" placeholder="请输入密码">
+    </div>
+    <button type="submit" class="layui-btn btnLogin" style="margin-top: 30px;">点击登陆</button>
+    <button type="button" class="layui-btn" style="margin-top: 30px;
+    float: right;
+    margin-right: 25px;" onclick="fasong()">GitHub登陆</button>
+</form>
+<script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
+<script>
+    function fasong() {
+        parent.location.href="https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1";
+    }
+    // function closeWindow(){
+    //     var index = parent.layer.getFrameIndex(window.name);
+    //     parent.layer.close(index);
+    //     doRegister()
+    // }
+
+
+
+
+</script>
+</body>
+</html>

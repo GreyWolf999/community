@@ -25,8 +25,7 @@ public class LoginHandInterceptors implements HandlerInterceptor {
 //        }else {
 //            return true;//相反 则放行请求 会直接访问目标资源
 //        }
-        System.out.println("处理controller之前调用的方法");
-        request.getRequestDispatcher("index.html").forward(request,response);
+        request.getRequestDispatcher("/index.html").forward(request,response);
         return false;
     }
     @Override
