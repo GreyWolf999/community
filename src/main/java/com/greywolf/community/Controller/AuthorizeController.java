@@ -42,8 +42,7 @@ public class AuthorizeController {
         //现在那个okHttp出现错误 先用随机数代替token作为认证标准
           int random = (int)Math.random()*10;
         System.out.println(random);
-          response.addCookie(new Cookie("GitHubUserCookie",String.valueOf(random)));
-//            request.getSession().setAttribute("GitHubUserCookie",String.valueOf(random));
+          response.addCookie(new Cookie("UserToken",String.valueOf(random)));
             request.getSession().setAttribute("user","GreyWolf");
         return "index";
     }

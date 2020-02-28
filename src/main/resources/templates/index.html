@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>小新社区</title>
+    <script th:src="@{webjars/jquery/3.4.0/jquery.min.js}"></script>
     <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
     <link rel="stylesheet" th:href="@{MyCss/publish.css}">
     <link  th:href="@{webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
     <script th:src="@{webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
-    <script th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+
 </head>
 <body class="body">
 <ul class="layui-nav" lay-filter="">
@@ -19,7 +20,7 @@
     <li class="layui-nav-item" style="margin-left: 15px"><button class="layui-btn" lay-submit lay-filter="formDemo" >立即提交</button></li>
     <li class="layui-nav-item" style="margin-left: 15px"><a href="">大数据</a></li>
     <li class="layui-nav-item" style="float: right" th:if="${session.user != null}">
-        <a href="" th:text="${session.user}"><img src="" class="layui-nav-img"></a>
+        <img th:src="${session.user.getAvatarUrl()}" class="layui-nav-img imagedi"><a href="#" th:text="${session.user.getName()}" style="float: right;"></a>
         <dl class="layui-nav-child" th:if="${session.user != null}">
             <dd><a href="javascript:;">个人信息</a></dd>
             <dd><a href="javascript:;">安全管理</a></dd>
@@ -38,7 +39,8 @@
             <div class="media">
                 <div class="media-left media-middle">
                     <a href="#">
-                        <img class="media-object img-rounded" th:src="@{images/1.jpg}" >
+<!--                        th:src="@{images/1.jpg}"-->
+                        <img class="media-object img-rounded"th:src="@{images/1.jpg}" >
                     </a>
                 </div>
                 <div class="media-body">
@@ -56,16 +58,19 @@
         </div>
     </div>
 </div>
-
 <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
-<script>
+<script th:inline="javascript">
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
     });
     layui.use('layer', function(){
         var layer = layui.layer;
-        layer.msg('欢迎来到小新社区');
+        //判断是否在有效期登陆过
+        var msg = [[${msg}]];
+        if (msg != null) {
+          layer.msg(msg)
+        }
     });
 
     function shut(){
@@ -79,6 +84,13 @@
             ,area: ['500px', '62%']
             ,shadeClose:true
             ,offset: 'auto'
+            , zIndex: layer.zIndex
+            , success: function (layero) {
+            layer.setTop(layero); //重点2
+        },
+        end: function () {
+            window.location.reload();
+        }
         });
     });
     $('#register').on('click', function(){

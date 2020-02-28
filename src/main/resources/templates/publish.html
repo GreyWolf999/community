@@ -13,9 +13,9 @@
     <li class="layui-nav-item" style="margin-left: 15px"><form class="layui-form" action=""><input type="text" name="title" placeholder="搜索问题" autocomplete="off" class="layui-input"></form></li>
     <li class="layui-nav-item" style="margin-left: 15px"><button class="layui-btn" lay-submit lay-filter="formDemo" >立即提交</button></li>
     <li class="layui-nav-item" style="margin-left: 15px"><a href="">大数据</a></li>
-    <li class="layui-nav-item" style="float: right">
-        <a href="" th:text="${session.user}"><img src="" class="layui-nav-img"></a>
-        <dl class="layui-nav-child">
+    <li class="layui-nav-item" style="float: right" th:if="${session.user != null}">
+        <img th:src="${session.user.getAvatarUrl()}" class="layui-nav-img imagedi"><a href="#" th:text="${session.user.getName()}" style="float: right;"></a>
+        <dl class="layui-nav-child" th:if="${session.user != null}">
             <dd><a href="javascript:;">个人信息</a></dd>
             <dd><a href="javascript:;">安全管理</a></dd>
             <dd><a href="javascript:;">注销登陆</a></dd>
