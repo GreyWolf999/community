@@ -2,9 +2,7 @@ package com.greywolf.community.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.greywolf.community.dbo.AccessTokenDTO;
-import com.greywolf.community.dbo.GitHubUser;
 import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.GitHubUsers;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.provide.AccessTokenProvide;
 import com.greywolf.community.service.QuestionService;

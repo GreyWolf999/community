@@ -2,15 +2,11 @@ package com.greywolf.community.component;
 
 
 import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.GitHubUsers;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
-import com.greywolf.community.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
