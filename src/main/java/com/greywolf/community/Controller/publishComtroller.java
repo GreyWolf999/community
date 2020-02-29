@@ -1,14 +1,17 @@
 package com.greywolf.community.Controller;
 
+import com.greywolf.community.dbo.UserQuestionDTO;
 import com.greywolf.community.mapper.Question;
 import com.greywolf.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class publishComtroller {
@@ -21,7 +24,8 @@ public class publishComtroller {
     }
     @PostMapping("/publish")
     public String doPublish(Question question,
-                            HttpServletRequest request){
+                            HttpServletRequest request,
+                            Model model){
         Cookie[] cookies = request.getCookies();
         if (cookies!=null && cookies.length>0){
             for (Cookie cookie:cookies
@@ -31,8 +35,9 @@ public class publishComtroller {
                 }
             }
         }
-        System.out.println(creatorToken);
         questionService.doPublish(question,creatorToken);
+        List<UserQuestionDTO> doshow = questionService.doshow();
+        model.addAttribute("UserQuestion",doshow);
         return "index";
     }
 }
