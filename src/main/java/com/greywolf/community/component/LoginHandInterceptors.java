@@ -2,6 +2,7 @@ package com.greywolf.community.component;
 
 
 import com.greywolf.community.dbo.UserQuestionDTO;
+import com.greywolf.community.mapper.GitHubUsers;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
@@ -34,7 +35,6 @@ public class LoginHandInterceptors implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
         if (cookies !=null && cookies.length>1){
-            System.out.println(cookies.length);
             for (Cookie cookie:cookies) {
                 if (cookie.getName().equals("UserToken")){
                         UserData userData = userService.selectByToken(cookie.getValue());
@@ -48,7 +48,7 @@ public class LoginHandInterceptors implements HandlerInterceptor {
 //            讲数据库信息放进首页中
             List<UserQuestionDTO> doshow = questionService.doshow();
             request.setAttribute("UserQuestion",doshow);
-//            System.out.println("没有cookie或者只有一个idea自带的cookie");
+//          System.out.println("没有cookie或者只有一个idea自带的cookie");
             request.setAttribute("msg","您还未登陆 请先登陆！！！");
             request.getRequestDispatcher("/index.html").forward(request,response);
             status=false;

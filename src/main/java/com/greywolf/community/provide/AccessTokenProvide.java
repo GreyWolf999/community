@@ -33,13 +33,13 @@ public class AccessTokenProvide {
 //            }
 //            return AccessToken;
 //    }
-//    public GitHubUser getGitHubUser(String accessToken) {
+//    public GitHubUsers getGitHubUser(String accessToken) {
 //        OkHttpClient client = new OkHttpClient();
 //        Request request = new Request.Builder()
 //                .url("https://api.github.com/user?access_token="+accessToken)
 //                .build();
 //        try (Response ignored = client.newCall(request).execute()) {
-//            gitHubUser = objectMapper.readValue(ignored.body().string(), GitHubUser.class);
+//            gitHubUser = objectMapper.readValue(ignored.body().string(), GitHubUsers.class);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }

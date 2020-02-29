@@ -1,5 +1,7 @@
 package com.greywolf.community.service.serviceImpl;
 
+import com.greywolf.community.mapper.GitHubUserMapper;
+import com.greywolf.community.mapper.GitHubUsers;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.mapper.userMapper;
 import com.greywolf.community.service.UserService;
@@ -12,6 +14,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     userMapper userMapper;
+    @Autowired
+    GitHubUserMapper gitHubUserMapper;
 
     @Override
     public void addUser(UserData userData,String avatarUrl) {
@@ -42,4 +46,5 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
 }
