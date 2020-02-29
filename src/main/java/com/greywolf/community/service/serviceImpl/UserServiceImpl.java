@@ -12,6 +12,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     userMapper userMapper;
+
     @Override
     public void addUser(UserData userData,String avatarUrl) {
         userData.setToken(UUID.randomUUID().toString());
@@ -31,7 +32,6 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
-
     @Override
     public UserData selectByToken(String token) {
         try {

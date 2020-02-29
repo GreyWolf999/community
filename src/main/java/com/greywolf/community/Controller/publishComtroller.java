@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class publishComtroller {
-    private Integer id;
+    private String creatorToken;
     @Autowired
     QuestionService questionService;
     @GetMapping("/publish")
@@ -26,13 +26,13 @@ public class publishComtroller {
         if (cookies!=null && cookies.length>0){
             for (Cookie cookie:cookies
                  ) {
-                if (cookie.getName().equals("GitHubUserCookie")){
-                    id = (Integer) Integer.parseInt(cookie.getValue());
+                if (cookie.getName().equals("UserToken")){
+                    creatorToken = cookie.getValue();
                 }
             }
         }
-        System.out.println(id);
-        questionService.doPublish(question,id);
+        System.out.println(creatorToken);
+        questionService.doPublish(question,creatorToken);
         return "index";
     }
 }

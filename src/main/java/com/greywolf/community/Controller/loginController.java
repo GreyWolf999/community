@@ -32,7 +32,10 @@ public class loginController {
         UserData userData = userService.seletUser(name, password);
         if (userData !=null){
             request.getSession().setAttribute("user",userData);
-            response.addCookie(new Cookie("UserToken",userData.getToken()));
+            Cookie cookie = new Cookie("UserToken", userData.getToken());
+//           cookie的存活时间设置为15分钟
+            cookie.setMaxAge(60*15);
+            response.addCookie(cookie);
             return true;
         }else {
             return false;
