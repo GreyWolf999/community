@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+
 
 @Controller
 public class publishComtroller {
@@ -36,8 +36,8 @@ public class publishComtroller {
             }
         }
         questionService.doPublish(question,creatorToken);
-        List<UserQuestionDTO> doshow = questionService.doshow();
-        model.addAttribute("UserQuestion",doshow);
+//        List<UserQuestionDTO> doshow = questionService.doshow(1);
+//        model.addAttribute("UserQuestion",doshow);
         return "index";
     }
 }

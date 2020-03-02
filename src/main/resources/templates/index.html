@@ -20,46 +20,12 @@
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <h1><i class="layui-icon layui-icon-align-left"></i>发现</h1>
         <hr>
-        <div class="media" th:each="UserQestions:${UserQuestion}">
-            <div class="media-left media-middle">
-                <a href="#">
-                    <img class="media-object imageT"th:src="${UserQestions.avatarUrl}" >
-                </a>
-            </div>
-            <div class="media-body textpei">
-                <h4 class="media-heading" th:text="${UserQestions.title}">Middle aligned media</h4>
-                <a href="#"  th:text="${UserQestions.tag}"></a>
-                <br>
-                <span><span th:text="${UserQestions.commentCount}"></span>个回复 • <span th:text="${UserQestions.viewCount}"></span>次浏览
-                        •<span th:text="${#dates.format(UserQestions.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
-                <hr>
-            </div>
-        </div>
-
-
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <!--            流加载部分-->
+        <ul class="flow-default" id="LAY_demo1"></ul>
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="">热门话题</h1>
+
     </div>
     </div>
 </div>
@@ -76,6 +42,30 @@
         if (msg != null) {
             layer.msg(msg)
         }
+    });
+    layui.use('flow', function(){
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        ;
+        flow.load({
+            elem: '#LAY_demo1' //指定列表容器
+
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.post('/?page='+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
+                            +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><h4 class="media-heading" >'
+                            +item.title+'</h4><a href="/hhh">'+item.tag+'</a><br><span><span>'
+                            +item.commentCount+'</span>个回复 •<span>'
+                            +item.viewCount+'</span>次浏览•<span>'+item.gmtCreate+'</span></span><hr></div></div>');
+                    });
+                    next(lis.join(''), page <res.pages);
+                });
+            }
+        });
     });
     function shut(){
         $(".layui-layer-close1").trigger('click');

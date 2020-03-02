@@ -50,7 +50,7 @@ public class AuthorizeController {
         String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
 //        model.addAttribute("GitHubUsers",gitHubUser);
         //现在那个okHttp出现错误 先用随机数代替token作为认证标准
-        List<UserQuestionDTO> doshow = questionService.doshow();
+        List<UserQuestionDTO> doshow = questionService.doshow(1);
         model.addAttribute("UserQuestion",doshow);
         UserData userData = userService.selectByToken("123456789");
         response.addCookie(new Cookie("UserToken",userData.getToken()));

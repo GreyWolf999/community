@@ -6,6 +6,7 @@ import com.greywolf.community.mapper.Question;
 import java.util.List;
 
 public interface QuestionService {
-    public void doPublish(Question question,String creatorToken);
-    public List<UserQuestionDTO> doshow();
+     void doPublish(Question question,String creatorToken);
+    List<UserQuestionDTO> doshow(int first);
+     int getCount();
 }

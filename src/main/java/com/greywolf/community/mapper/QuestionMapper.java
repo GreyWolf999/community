@@ -10,7 +10,9 @@ import java.util.List;
 public interface QuestionMapper {
     @Insert("INSERT INTO question(title,description,gmtCreate,gmtModified,creator,tag) VALUES(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
       public void create(Question question);
-    @Select("SELECT * FROM question ORDER BY gmtCreate DESC")
-      public List<Question> getQuestion();
+    @Select("SELECT * FROM question ORDER BY gmtCreate DESC LIMIT #{first},#{limits}")
+      public List<Question> getQuestion(int first,int limits);
+    @Select("SELECT COUNT(*) FROM question")
+     int getConunt();
 
 }

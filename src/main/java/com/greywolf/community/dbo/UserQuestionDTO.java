@@ -7,7 +7,7 @@ public class UserQuestionDTO {
     private String title;
     private String description;
     private String tag;
-    private Long gmtCreate;
+    private String gmtCreate;
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;

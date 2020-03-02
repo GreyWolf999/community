@@ -42,8 +42,8 @@ public class LoginHandInterceptors implements HandlerInterceptor {
                 }
         }else {
 //            讲数据库信息放进首页中
-            List<UserQuestionDTO> doshow = questionService.doshow();
-            request.setAttribute("UserQuestion",doshow);
+//            List<UserQuestionDTO> doshow = questionService.doshow(1);
+//            request.setAttribute("UserQuestion",doshow);
 //          System.out.println("没有cookie或者只有一个idea自带的cookie");
             request.setAttribute("msg","您还未登陆 请先登陆！！！");
             request.getRequestDispatcher("/index.html").forward(request,response);
