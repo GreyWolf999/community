@@ -1,0 +1,27 @@
+.imageT{
+    width: 60px;
+    height: 60px;
+    border-radius: 15%;
+}
+.textpei{
+    margin-left: 20px;
+    padding-top: 20px;
+}
+.navp{
+    background-color: snow;
+    width: 1300px;
+    margin: auto;
+    margin-top: 75px;
+}
+.bodys{
+    background-color: beige;
+}
+.heads{
+    margin-top: 35px;
+}
+.imaged{
+    width: 35px;
+    float: none;
+    margin-top: 7px;
+    border-radius: 50%;
+}

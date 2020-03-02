@@ -10,6 +10,7 @@ import java.util.List;
 public interface QuestionMapper {
     @Insert("INSERT INTO question(title,description,gmtCreate,gmtModified,creator,tag) VALUES(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})")
       public void create(Question question);
-    @Select("SELECT * FROM question")
+    @Select("SELECT * FROM question ORDER BY gmtCreate DESC")
       public List<Question> getQuestion();
+
 }

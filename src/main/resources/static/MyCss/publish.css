@@ -1,66 +1,56 @@
-.fon{
-    margin-top: 4px;
-    font-style: oblique;
-    color: gray;
+.bodysd{
+    background: beige;
 }
-.fon2{
-    margin-top: 4px;
-    font-style: oblique;
+.lab3{
+    margin-left: 15px;
+    font-family: cursive;
 }
-.body{
-    background: gainsboro;
+.lab2{
+    margin-left: 15px;
+    margin-top: 20px;
+    font-family: cursive;
 }
-.tli{
-    margin-top: 25px;
+.lab{
+    margin-top: 20px;
+    font-family: cursive;
+}
+.btn1{
+    margin-top: 20px;
+    float: right;
+    font-family: cursive;
 }
 .textArea{
     margin-top: 10px;
     height: 400px;
 }
-.lab{
-    margin-top: 20px;
-}
-.btn{
-    margin-top: 20px;
-    float: right;
+.tli{
+    margin-top: 25px;
 }
 .problem{
     margin-left: 30px;
-}
-.container2{
-    background-color: aliceblue;
-    width: 1300px;
 }
 .row1{
     background-color: beige;
     margin-top: 50px
 }
-.lab2{
-    margin-left: 15px;
-    margin-top: 20px;
-}
-.lab3{
-    margin-left: 15px;
-}
-.text-desc{
-    font-size: 12px;
-    font-weight: normal;
-    color: #999;
-}
-.media-object{
-    width: 60px;
-    height: 60px;
-}
-.fontsize{
-    font-size: initial;
-}
-.iconSize{
-    font-size:37px
-}
-.login{
-    margin-top: 40px;
-}
-.imagedi{
+.imaged{
+    width: 35px;
     float: none;
-    margin-right: auto;
+    margin-top: 7px;
+    border-radius: 50%;
+}
+.navp{
+    background-color: snow;
+    width: 1300px;
+    margin: auto;
+    margin-top: 75px;
+}
+.fon{
+    margin-top: 4px;
+    font-family: cursive;
+    color: gray;
+}
+.fon2{
+    margin-top: 4px;
+    font-family: cursive;
 }

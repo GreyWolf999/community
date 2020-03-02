@@ -15,7 +15,6 @@ import java.util.List;
 
 @Controller
 public class indexController {
-    private String Token;
     @Autowired
     UserService userService;
     @Autowired
@@ -27,12 +26,12 @@ public class indexController {
         if (cookies !=null && cookies.length>1){
             for (Cookie cookie:cookies) {
                 if (cookie.getName().equals("UserToken")){
-                    Token=cookie.getValue();
+                    UserData userData = userService.selectByToken(cookie.getValue());
+                    request.getSession().setAttribute("user",userData);
                 }
             }
         }
-        UserData userData = userService.selectByToken(Token);
-        request.getSession().setAttribute("user",userData);
+
         List<UserQuestionDTO> doshow = questionService.doshow();
         model.addAttribute("UserQuestion",doshow);
         return "index";
