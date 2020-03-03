@@ -34,8 +34,8 @@ public class QuestionImpl implements QuestionService {
     public List<UserQuestionDTO> doshow(int page) {
 //        自定义分页数目
         int limits=5;
-        Date date = new Date();
-//        获取分页开始的数字
+        Date date=new Date();
+        //        获取分页开始的数字
         int limitFirst=(page-1)*limits;
         List<UserQuestionDTO> UserQuestionlist=new ArrayList<>();
         List<Question> question = questionMapper.getQuestion(limitFirst,limits);
@@ -43,12 +43,9 @@ public class QuestionImpl implements QuestionService {
             UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
             UserData userData = userMapper.selectUserByToken(UserQuestion.getCreator());
             userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarUrl());
-
-
-            date.setTime(userData.getGmtCreate());
-            userQuestionDTO.setGmtCreate(new SimpleDateFormat().format(date));
-
-
+            //将毫秒值转化成日期
+            date.setTime(UserQuestion.getGmtCreate());
+            userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
             BeanUtils.copyProperties(UserQuestion,userQuestionDTO);
             UserQuestionlist.add(userQuestionDTO);
         }

@@ -38,6 +38,11 @@ public class publishComtroller {
         questionService.doPublish(question,creatorToken);
 //        List<UserQuestionDTO> doshow = questionService.doshow(1);
 //        model.addAttribute("UserQuestion",doshow);
-        return "index";
+        /*
+        *   使用重定向来解决发布页面的刷新重复提交的问题
+        * 也可以再发布页面使用异步请求再将页面重定向到首页
+        *  */
+
+        return "redirect:index.html";
     }
 }

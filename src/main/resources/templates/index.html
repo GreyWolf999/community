@@ -30,10 +30,6 @@
 </div>
 <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
 <script th:inline="javascript">
-    //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function(){
-        var element = layui.element;
-    });
     layui.use('layer', function(){
         var layer = layui.layer;
         //判断是否在有效期登陆过
@@ -42,13 +38,13 @@
             layer.msg(msg)
         }
     });
+    // 流加载数据
     layui.use('flow', function(){
         var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
         var flow = layui.flow;
-        ;
         flow.load({
             elem: '#LAY_demo1' //指定列表容器
-
+            ,end:'臣妾满足不了您了'
             ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                 var lis = [];
                 //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
