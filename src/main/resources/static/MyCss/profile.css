@@ -1,3 +1,6 @@
+.bodysd{
+    background: beige;
+}
 .liebiao{
     margin-top: 16px;
 }
@@ -9,4 +12,21 @@
     float: none;
     margin-top: 7px;
     border-radius: 50%;
+}
+.labersty{
+    font-family: cursive;
+}
+.navp{
+    background-color: snow;
+    width: 1300px;
+    margin: auto;
+    margin-top: 75px;
+}
+.glyphicon-user:before{
+    padding-right: 10px;
+    /*color: #080303bf;*/
+    color: #807c79;
+}
+.heads{
+    margin-top: 35px;
 }

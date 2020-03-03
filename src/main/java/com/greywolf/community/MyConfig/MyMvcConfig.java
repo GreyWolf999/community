@@ -18,7 +18,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginHandInterceptors).addPathPatterns("/publish");
+        registry.addInterceptor(loginHandInterceptors).addPathPatterns("/publish","/community/profie");
 //                .addPathPatterns("/**").excludePathPatterns("/","/goRegister","/goLogin"
 //        ,"https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1",
 //                "/callback","/index.html","/MyCss/**","/images/**","/js/**","/go","/webjars/**","/upload");
