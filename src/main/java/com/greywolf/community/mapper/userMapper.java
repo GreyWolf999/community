@@ -24,4 +24,6 @@ public interface userMapper {
     void updateUsername(String token, String name);
     @Update("UPDATE user set name=#{name},password=#{password} WHERE token=#{token}")
     void updateAll(String token, String name, String password);
+    @Update("UPDATE user set avatarUrl=#{avatarUrl} WHERE token=#{token}")
+    void replaceHead(String avatarUrl,String token);
 }

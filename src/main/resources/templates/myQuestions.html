@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--            流加载部分-->
+<ul class="flow-default" id="MyQurstions"></ul>
+<script>
+    layui.use('flow', function(){
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#MyQurstions' //指定列表容器
+            ,end:'已经到底了亲'
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.post('/myQuestionsList?page='+page, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
+                            +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check" class="question">'
+                            +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
+                            +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
+                            +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');
+                    });
+                    next(lis.join(''), page <res.pages);
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

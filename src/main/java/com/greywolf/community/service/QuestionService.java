@@ -9,4 +9,6 @@ public interface QuestionService {
      void doPublish(Question question,String creatorToken);
      List<UserQuestionDTO> doshow(int first);
      int getCount();
+
+    List<UserQuestionDTO> getQuestionByToken(int page, String token);
 }

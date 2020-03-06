@@ -59,4 +59,25 @@ public class QuestionImpl implements QuestionService {
     public int getCount(){
         return questionMapper.getConunt();
     }
+    @Cacheable(value = "questionListByToken")
+    @Override
+    public List<UserQuestionDTO> getQuestionByToken(int page,String token){
+        int limits=5;
+        Date date=new Date();
+        //        获取分页开始的数字
+        int limitFirst=(page-1)*limits;
+        List<UserQuestionDTO> UserQuestionlist=new ArrayList<>();
+        List<Question> questionByToken = questionMapper.getQuestionByToken(limitFirst, limits, token);
+        for (Question question :questionByToken) {
+            UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
+            UserData userData = userMapper.selectUserByToken(token);
+            userQuestionDTO.setAvatarUrl("/images/"+userData.getAvatarUrl());
+            date.setTime(question.getGmtCreate());
+            userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+//            这个方法是将第一个对象中的与第二个对象中的属性相同的属性复制到第二个对象中
+            BeanUtils.copyProperties(question,userQuestionDTO);
+            UserQuestionlist.add(userQuestionDTO);
+        }
+        return UserQuestionlist;
+    }
 }

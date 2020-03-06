@@ -23,7 +23,6 @@ public class logoutController {
     @ResponseBody
     @CacheEvict(value = "user",allEntries = true )
     public String doLogout(HttpServletRequest request, HttpServletResponse response){
-        userService.logout();
         //移除session中的数据
         request.getSession().removeAttribute("user");
         Cookie[] cookies = request.getCookies();

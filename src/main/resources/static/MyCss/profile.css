@@ -54,3 +54,21 @@
     /*font-family: -webkit-body;*/
     font-family: cursive;
 }
+.imageT{
+    width: 70px;
+    height: 70px;
+    border-radius: 15%;
+}
+.textpei{
+    margin-left: 20px;
+    padding-top: 20px;
+}
+.question{
+    font-family: cursive;
+    font-size: x-large;
+    color: #337ab7;
+}
+.tagdiy{
+    font-family: cursive;
+    padding-top: 3px;
+}

@@ -5,6 +5,7 @@ import com.greywolf.community.mapper.userMapper;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     userMapper userMapper;
 //    @Cacheable(value = "user",key = "#avatarUrl")
+    @CacheEvict(value = "user", allEntries = true)
     @Override
     public UserData addUser(UserData userData, String avatarUrl) {
         userData.setToken(UUID.randomUUID().toString());
@@ -61,4 +63,11 @@ public class UserServiceImpl implements UserService {
     public void updateAll(String token, String name,String password) {
         userMapper.updateAll(token,name,password);
     }
+
+//    @CachePut(value = "usr",key = "#token")
+    @Override
+    public void replaceHeadSculpture(String avatarUrl, String token){
+        userMapper.replaceHead(avatarUrl,token);
+    }
+
 }

@@ -15,4 +15,6 @@ public interface QuestionMapper {
     @Select("SELECT COUNT(*) FROM question")
      int getConunt();
 
+    @Select("SELECT * FROM question WHERE creator=#{token} ORDER BY gmtCreate DESC LIMIT #{limitFirst},#{limits}")
+    List<Question> getQuestionByToken(int limitFirst, int limits, String token);
 }
