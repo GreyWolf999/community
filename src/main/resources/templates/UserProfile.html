@@ -48,24 +48,32 @@
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-user" aria-hidden="true" ></span>个人中心</h1>
         <hr>
+        <div id="personalCentral"></div>
         <!--流加载部分-->
-        <ul class="flow-default" id="dataliu"></ul>
+<!--        <ul class="flow-default" id="dataliu"></ul>-->
 </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-        <h1 class="">个人中心</h1>
-        <div class="list-group">
-            <button type="button" class="list-group-item">个人资料</button>
+        <h1 class="fontfa">个人中心</h1>
+        <div class="list-group labersty">
+            <button type="button" class="list-group-item" onclick="personalCentral()" id="SelectedItem">个人资料</button>
             <button type="button" class="list-group-item">我的问题</button>
             <button type="button" class="list-group-item">Morbi leo risus</button>
             <button type="button" class="list-group-item">Porta ac consectetur ac</button>
             <button type="button" class="list-group-item">Vestibulum at eros</button>
         </div>
         <hr>
+        <span th:text="${SelectedItem}"></span>
     </div>
     </div>
 </div>
 <script th:src="@{/webjars/layui/2.5.4/layui.js}"></script>
 <script th:inline="javascript">
+
+    function personalCentral(){
+        // 利用jQuery修改按钮选中效果然后加载需要的页面信息
+        $("#SelectedItem").attr("class","active list-group-item");
+        $("#personalCentral").load("/personalCentral");
+    }
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
@@ -73,6 +81,28 @@
     layui.use('layer', function(){
         var layer = layui.layer;
     });
+    function updateUser() {
+        var name=$("#PersonText").val();
+        var password=$("#PasswordText").val();
+        $.ajax({
+            url:"/community/updateUser",
+            type:"POST",
+            sync:false,
+            data:{
+                name:name,
+                password:password
+            },
+            success:function (data) {
+                layer.msg(data,{
+                    icon:1,
+                    time:2000
+                },function () {
+
+                })
+            }
+        })
+    }
+
 // 注销
     function doLogout() {
         $.ajax({

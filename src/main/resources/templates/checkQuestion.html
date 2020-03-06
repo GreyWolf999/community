@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
-    <link rel="stylesheet" href="MyCss/index.css">
+    <link rel="stylesheet" href="MyCss/check.css">
 </head>
 <body class="bodys">
 <!--   将相同的文件封装 然后在需要的地方直接插入-->
@@ -19,8 +19,7 @@
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-list" aria-hidden="true" ></span>发现</h1>
         <hr>
-        <!--            流加载部分-->
-        <ul class="flow-default" id="LAY_demo1"></ul>
+
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>热门话题</h1>
@@ -32,39 +31,7 @@
 <script th:inline="javascript">
     layui.use('layer', function(){
         var layer = layui.layer;
-        //判断是否在有效期登陆过
-        var msg = [[${msg}]];
-        if (msg != null) {
-            layer.msg(msg)
-        }
     });
-    // 流加载数据
-    layui.use('flow', function(){
-        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
-        var flow = layui.flow;
-        flow.load({
-            elem: '#LAY_demo1' //指定列表容器
-            ,end:'臣妾满足不了您了'
-            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-                var lis = [];
-                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-                $.post('/?page='+page, function(res){
-                    //假设你的列表返回在data集合中
-                    layui.each(res.data, function(index, item){
-                        lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
-                            +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check" class="question">'
-                            +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
-                            +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
-                            +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');
-                    });
-                    next(lis.join(''), page <res.pages);
-                });
-            }
-        });
-    });
-    function shut(){
-        $(".layui-layer-close1").trigger('click');
-    }
     $('#login').on('click', function(){
         layer.open({
             type:2

@@ -1,0 +1,56 @@
+.imageT{
+    width: 70px;
+    height: 70px;
+    border-radius: 15%;
+}
+.textpei{
+    margin-left: 20px;
+    padding-top: 20px;
+}
+.navp{
+    background-color: snow;
+    width: 1300px;
+    margin: auto;
+    margin-top: 75px;
+}
+.bodys{
+    background-color: beige;
+}
+.heads{
+    margin-top: 35px;
+}
+.imaged{
+    width: 35px;
+    float: none;
+    margin-top: 7px;
+    border-radius: 50%;
+}
+.glyphicon-list:before {
+    padding-right: 10px;
+    /*color: #080303bf;*/
+    color: #807c79;
+}
+.glyphicon-tags:before {
+    padding-right: 15px;
+    /*color: #080303bf;*/
+    color: #807c79;
+}
+.fontfa{
+    /*color: #080303bf;*/
+    color: #807c79;
+    /*font-family: -webkit-body;*/
+    font-family: cursive;
+}
+.question{
+    font-family: cursive;
+    font-size: x-large;
+    color: #337ab7;
+
+}
+.tagdiy{
+    font-family: cursive;
+   padding-top: 3px;
+}
+.labersty{
+    font-family: cursive;
+}

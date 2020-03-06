@@ -30,7 +30,8 @@ public class LoginHandInterceptors implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        if (cookies !=null && cookies.length>1){
+//        使用redis后cookie中多自带了一个cookie_lang=1的信息 所以在这里将长度增加1
+        if (cookies !=null && cookies.length>2){
             for (Cookie cookie:cookies) {
                 if (cookie.getName().equals("UserToken")){
                         UserData userData = userService.selectByToken(cookie.getValue());

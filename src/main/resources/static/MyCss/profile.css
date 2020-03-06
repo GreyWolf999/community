@@ -30,3 +30,27 @@
 .heads{
     margin-top: 35px;
 }
+.media-object{
+    width: 90px;
+    height: 90px;
+    border-radius: 15%;
+}
+.form-control{
+    width: 55%;
+}
+.btnprofile{
+    float: right;
+    margin-right: 200px;
+}
+.bianju{
+    padding-left: 25px;
+}
+.list-group{
+    margin-top: 12px;
+}
+.fontfa{
+    /*color: #080303bf;*/
+    color: #807c79;
+    /*font-family: -webkit-body;*/
+    font-family: cursive;
+}

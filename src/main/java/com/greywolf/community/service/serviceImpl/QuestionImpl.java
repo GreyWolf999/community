@@ -9,6 +9,7 @@ import com.greywolf.community.service.QuestionService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +31,8 @@ public class QuestionImpl implements QuestionService {
         questionMapper.create(question);
     }
 
+
+    @Cacheable(value = "questionList")
     @Override
     public List<UserQuestionDTO> doshow(int page) {
 //        自定义分页数目
@@ -51,6 +54,7 @@ public class QuestionImpl implements QuestionService {
         }
         return UserQuestionlist;
     }
+    @Cacheable(value = "count")
     @Override
     public int getCount(){
         return questionMapper.getConunt();

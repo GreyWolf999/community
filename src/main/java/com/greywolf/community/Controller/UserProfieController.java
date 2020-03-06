@@ -3,6 +3,7 @@ package com.greywolf.community.Controller;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
