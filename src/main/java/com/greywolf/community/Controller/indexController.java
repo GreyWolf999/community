@@ -1,6 +1,7 @@
 package com.greywolf.community.Controller;
 
 import com.greywolf.community.dbo.UserQuestionDTO;
+import com.greywolf.community.dbo.datalayout;
 import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
@@ -42,13 +43,9 @@ public class indexController {
 @PostMapping("/")
 @ResponseBody
 public Map<String, Object> index(@RequestParam("page") int page){
+
     List<UserQuestionDTO> UserQuestion = questionService.doshow(Integer.valueOf(page));
-    map.put("code",0);
-    map.put("msg","");
-    map.put("pages",3);
-    map.put("data",UserQuestion);
-    map.put("count",questionService.getCount());
-    return map;
+    return new datalayout().getDataLayout(questionService.getPages(),UserQuestion,questionService.getCount());
    }
    @GetMapping("/")
    public String goIndex(HttpServletRequest request){

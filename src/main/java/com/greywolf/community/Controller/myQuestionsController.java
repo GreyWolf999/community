@@ -1,6 +1,7 @@
 package com.greywolf.community.Controller;
 
 import com.greywolf.community.dbo.UserQuestionDTO;
+import com.greywolf.community.dbo.datalayout;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class myQuestionsController {
-    private Map<String,Object> map=new HashMap<>();
     private String token=null;
     @Autowired
     UserService userService;
@@ -42,11 +40,6 @@ public class myQuestionsController {
             }
         }
         List<UserQuestionDTO> UserQuestion =questionService.getQuestionByToken(page,token);
-        map.put("code",0);
-        map.put("msg","");
-        map.put("pages",3);
-        map.put("data",UserQuestion);
-        map.put("count",questionService.getCount());
-        return map;
+        return new datalayout().getDataLayout(questionService.getPages(),UserQuestion,questionService.getCount());
     }
 }

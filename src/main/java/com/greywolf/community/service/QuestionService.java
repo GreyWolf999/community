@@ -10,7 +10,10 @@ public interface QuestionService {
      void doPublish(Question question,String creatorToken);
      List<UserQuestionDTO> doshow(int first);
      int getCount();
-     List<UserQuestionDTO> getQuestionByToken(int page, String token);
+
+    int getPages();
+
+    List<UserQuestionDTO> getQuestionByToken(int page, String token);
      //用来清除更新了相关属性的缓存
      void cleanCache();
      void cleanCacheByToken();

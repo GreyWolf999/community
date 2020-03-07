@@ -61,6 +61,13 @@ public class QuestionImpl implements QuestionService {
     public int getCount(){
         return questionMapper.getConunt();
     }
+    @Override
+    public int getPages(){
+        int count = getCount();
+        if (count%5==0){
+            return count/5;
+        }else return count/5+1;
+    }
     @Cacheable(value = "questionListByToken")
     @Override
     public List<UserQuestionDTO> getQuestionByToken(int page,String token){
