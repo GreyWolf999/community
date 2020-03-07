@@ -16,10 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class loginController {
-
-
-
-    RedisTemplate<String,UserData> redisTemplate=new RedisTemplate<>();
     @Autowired
     UserService userService;
     @GetMapping("/goLogin")

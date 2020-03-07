@@ -1,5 +1,6 @@
 package com.greywolf.community.Controller;
 
+import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,11 +19,16 @@ public class logoutController {
     * 注销功能
     * */
     @Autowired
+    QuestionService questionService;
+    @Autowired
     UserService userService;
     @GetMapping("/logout")
     @ResponseBody
     @CacheEvict(value = "user",allEntries = true )
     public String doLogout(HttpServletRequest request, HttpServletResponse response){
+        questionService.cleanCache();
+        questionService.cleanCount();
+        questionService.cleanCacheByToken();
         //移除session中的数据
         request.getSession().removeAttribute("user");
         Cookie[] cookies = request.getCookies();

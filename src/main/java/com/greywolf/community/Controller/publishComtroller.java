@@ -36,6 +36,8 @@ public class publishComtroller {
             }
         }
         questionService.doPublish(question,creatorToken);
+        questionService.cleanCache();
+        questionService.cleanCacheByToken();
 //        List<UserQuestionDTO> doshow = questionService.doshow(1);
 //        model.addAttribute("UserQuestion",doshow);
         /*

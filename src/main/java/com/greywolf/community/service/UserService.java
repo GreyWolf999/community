@@ -12,5 +12,5 @@ public interface UserService {
 
      void updateAll(String token,String name, String password);
 
-     void replaceHeadSculpture(String avatarUrl, String tokren);
+     UserData replaceHeadSculpture(String avatarUrl, String tokren);
 }

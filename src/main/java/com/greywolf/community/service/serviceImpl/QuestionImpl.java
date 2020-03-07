@@ -9,6 +9,8 @@ import com.greywolf.community.service.QuestionService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -80,4 +82,16 @@ public class QuestionImpl implements QuestionService {
         }
         return UserQuestionlist;
     }
+    //用来清除更新了相关属性的缓存
+    @CacheEvict(value = "questionList",allEntries = true)
+    @Override
+    public void cleanCache(){
+    }
+
+    @CacheEvict(value = "questionListByToken",allEntries = true)
+    @Override
+    public void cleanCacheByToken(){}
+    @CacheEvict(value = "count",allEntries = true)
+    @Override
+    public void cleanCount(){}
 }

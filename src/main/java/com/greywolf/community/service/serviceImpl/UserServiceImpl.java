@@ -4,10 +4,10 @@ import com.greywolf.community.mapper.UserData;
 import com.greywolf.community.mapper.userMapper;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.UUID;
 
@@ -15,8 +15,6 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     userMapper userMapper;
-//    @Cacheable(value = "user",key = "#avatarUrl")
-    @CacheEvict(value = "user", allEntries = true)
     @Override
     public UserData addUser(UserData userData, String avatarUrl) {
         userData.setToken(UUID.randomUUID().toString());
@@ -26,8 +24,6 @@ public class UserServiceImpl implements UserService {
         userMapper.addUser(userData);
         return userData;
     }
-
-    @Cacheable(value = "user",key = "#name")
     @Override
     public UserData seletUser(String name,String password) {
         try {
@@ -64,10 +60,14 @@ public class UserServiceImpl implements UserService {
         userMapper.updateAll(token,name,password);
     }
 
-//    @CachePut(value = "usr",key = "#token")
+
     @Override
-    public void replaceHeadSculpture(String avatarUrl, String token){
+    @CachePut(value = "user",key = "#token")
+    public UserData replaceHeadSculpture(String avatarUrl, String token){
         userMapper.replaceHead(avatarUrl,token);
+        UserData userData = userMapper.selectUserByToken(token);
+        userData.setAvatarUrl("images/"+userData.getAvatarUrl());
+        return userData;
     }
 
 }

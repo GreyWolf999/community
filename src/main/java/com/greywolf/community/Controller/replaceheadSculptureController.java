@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greywolf.community.Util.PathUtil;
 import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -26,6 +27,8 @@ public class replaceheadSculptureController {
     @Autowired
     UserService userService;
     @Autowired
+    QuestionService questionService;
+    @Autowired
     ObjectMapper objectMapper;
     @PostMapping("/replaceHead")
     @ResponseBody
@@ -36,14 +39,16 @@ public class replaceheadSculptureController {
         Map<String,Object> map=new HashMap<>();
         if (file!=null){
             String fileName = file.getOriginalFilename();
-//            Cookie[] cookies = request.getCookies();
-//            if (cookies !=null && cookies.length>1){
-//                for (Cookie cookie:cookies) {
-//                    if (cookie.getName().equals("UserToken")){
-//                        userService.replaceHeadSculpture(fileName,cookie.getValue());
-//                    }
-//                }
-//            }
+            Cookie[] cookies = request.getCookies();
+            if (cookies !=null && cookies.length>1){
+                for (Cookie cookie:cookies) {
+                    if (cookie.getName().equals("UserToken")){
+                        userService.replaceHeadSculpture(fileName,cookie.getValue());
+                        questionService.cleanCache();
+                        questionService.cleanCacheByToken();
+                    }
+                }
+            }
 
             File imageFile = new PathUtil().getImageFile();
             String absolutePath = imageFile.getAbsolutePath();

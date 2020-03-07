@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 class CommunityApplicationTests {
 
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<Object,UserData> UserRedisTemplate;
     @Autowired
     StringRedisTemplate stringRedisTemplate;
     @Test
@@ -21,12 +21,10 @@ class CommunityApplicationTests {
         userData.setAvatarUrl("sfsdf");
         userData.setToken("jfosjgoisdg");
         userData.setName("jfosjgoisdg");
-    redisTemplate.opsForValue().set("mmm",userData);
-        UserData mmm = (UserData)redisTemplate.opsForValue().get("mmm");
+        UserRedisTemplate.opsForValue().set("mmm",userData);
+        UserData mmm = UserRedisTemplate.opsForValue().get("mmm");
         mmm.setName("111111");
-        String msg = stringRedisTemplate.opsForValue().get("msg");
-        System.out.println(mmm);
-        System.out.println(msg);
+
     }
 
 }
