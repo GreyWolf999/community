@@ -3,7 +3,7 @@ package com.greywolf.community.Controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.greywolf.community.dbo.AccessTokenDTO;
 import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.model.user;
 import com.greywolf.community.provide.AccessTokenProvide;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
@@ -50,11 +50,9 @@ public class AuthorizeController {
         String accessToken = accessTokenProvide.getAccessToken(accessTokenDTO);
 //        model.addAttribute("GitHubUsers",gitHubUser);
         //现在那个okHttp出现错误 先用随机数代替token作为认证标准
-        List<UserQuestionDTO> doshow = questionService.doshow(1);
-        model.addAttribute("UserQuestion",doshow);
-        UserData userData = userService.selectByToken("123456789");
-        response.addCookie(new Cookie("UserToken",userData.getToken()));
-        request.getSession().setAttribute("user",userData);
+        user user = userService.selectByToken("123456789");
+        response.addCookie(new Cookie("UserToken",user.getToken()));
+        request.getSession().setAttribute("user",user);
         return "index";
     }
 

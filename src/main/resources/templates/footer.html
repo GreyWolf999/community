@@ -19,7 +19,7 @@
                     <li><a href="#" th:if="${session.user == null}" id="register" class="labersty">注册</a></li>
                     <li><a href="/publish" class="labersty">发出提问</a></li>
                     <li class="dropdown" th:if="${session.user !=null}">
-                        <img th:src="${session.user.getAvatarUrl()}" class="imaged" id="image2">
+                        <img th:src="${session.user.getAvatarurl()}" class="imaged" id="image2">
                         <a href="#" class="dropdown-toggle labersty" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}" style="float: right"></a><span class="caret"></span>
                         <ul class="dropdown-menu" th:if="${session.user !=null}" >
                             <li><a href="/community/profie" class="labersty">个人信息</a></li>

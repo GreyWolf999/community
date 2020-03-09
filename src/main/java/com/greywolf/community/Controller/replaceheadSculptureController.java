@@ -3,11 +3,10 @@ package com.greywolf.community.Controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greywolf.community.Util.PathUtil;
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.component.cookiesSelect;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,17 +37,12 @@ public class replaceheadSculptureController {
         Map<String,Object> map=new HashMap<>();
         if (file!=null){
             String fileName = file.getOriginalFilename();
-            Cookie[] cookies = request.getCookies();
-            if (cookies !=null && cookies.length>1){
-                for (Cookie cookie:cookies) {
-                    if (cookie.getName().equals("UserToken")){
-                        userService.replaceHeadSculpture(fileName,cookie.getValue());
+            String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
+            if (tokenByCookie !=null){
+                userService.replaceHeadSculpture(fileName,tokenByCookie);
                         questionService.cleanCache();
                         questionService.cleanCacheByToken();
-                    }
-                }
             }
-
             File imageFile = new PathUtil().getImageFile();
             String absolutePath = imageFile.getAbsolutePath();
             File dest = new File(absolutePath +File.separator+ fileName);

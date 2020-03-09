@@ -1,7 +1,7 @@
 package com.greywolf.community.Controller;
 
-import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.Question;
+import com.greywolf.community.component.cookiesSelect;
+import com.greywolf.community.model.question;
 import com.greywolf.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,23 +23,15 @@ public class publishComtroller {
         return "publish";
     }
     @PostMapping("/publish")
-    public String doPublish(Question question,
-                            HttpServletRequest request,
-                            Model model){
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null && cookies.length>0){
-            for (Cookie cookie:cookies
-                 ) {
-                if (cookie.getName().equals("UserToken")){
-                    creatorToken = cookie.getValue();
-                }
-            }
+    public String doPublish(question question,
+                            HttpServletRequest request){
+        String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
+        if (tokenByCookie !=null){
+            questionService.doPublish(question,tokenByCookie);
+            questionService.cleanCache();
+            questionService.cleanCacheByToken();
         }
-        questionService.doPublish(question,creatorToken);
-        questionService.cleanCache();
-        questionService.cleanCacheByToken();
-//        List<UserQuestionDTO> doshow = questionService.doshow(1);
-//        model.addAttribute("UserQuestion",doshow);
+
         /*
         *   使用重定向来解决发布页面的刷新重复提交的问题
         * 也可以再发布页面使用异步请求再将页面重定向到首页

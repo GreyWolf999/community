@@ -1,13 +1,12 @@
 package com.greywolf.community.service;
 
 import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.Question;
-import org.springframework.cache.annotation.CacheEvict;
+import com.greywolf.community.model.question;
 
 import java.util.List;
 
 public interface QuestionService {
-     void doPublish(Question question,String creatorToken);
+     void doPublish(question question, String creatorToken);
      List<UserQuestionDTO> doshow(int first);
      int getCount();
 

@@ -4,7 +4,7 @@
     <div class="media">
         <div class="media-left media-middle">
             <a href="#">
-                <img class="media-object" th:src="${userdata.getAvatarUrl()}" alt="..." id="image">
+                <img class="media-object" th:src="${userdata.getAvatarurl()}" alt="..." id="image">
                 <button type="button" class="btn btn-default labersty" id="upload" style="margin-top: 15px">更换头像</button>
             </a>
         </div>
@@ -19,7 +19,7 @@
                     <input type="password" class="form-control" id="PasswordText" th:value="${userdata.getPassword()}">
                 </div>
                 <div class="form-group labersty">
-                <label>账号创建时间:<span th:text="${#dates.format(userdata.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></label>
+                <label>账号创建时间:<span th:text="${#dates.format(userdata.getGmtcreate(),'yyyy-MM-dd HH:mm:ss')}"></span></label>
                 </div>
                 <button type="button" class="btn btn-default labersty" onclick="updateUser()">确认修改</button>
             </form>

@@ -1,16 +1,13 @@
 package com.greywolf.community.service;
 
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.model.user;
 
 public interface UserService {
-     UserData addUser(UserData userData, String ImageUrl);
-     UserData seletUser(String name,String password);
-     UserData selectByToken(String token);
+     user addUser(user userData, String ImageUrl);
+     user seletUser(String name,String password);
+     user selectByToken(String token);
      void updatePassword(String token,String password);
-
      void updateUsername(String token, String name);
-
      void updateAll(String token,String name, String password);
-
-     UserData replaceHeadSculpture(String avatarUrl, String tokren);
+     user replaceHeadSculpture(String avatarUrl, String tokren);
 }

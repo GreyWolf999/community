@@ -1,9 +1,8 @@
 package com.greywolf.community.Controller;
 
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.model.user;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +27,7 @@ public class loginController {
                           @RequestParam("password") String password,
                           HttpServletResponse response,
                           HttpServletRequest request){
-        UserData userData = userService.seletUser(name, password);
+        user userData = userService.seletUser(name, password);
         if (userData !=null){
             request.getSession().setAttribute("user",userData);
             Cookie cookie = new Cookie("UserToken", userData.getToken());

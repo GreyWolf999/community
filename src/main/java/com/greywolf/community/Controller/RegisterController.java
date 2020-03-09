@@ -2,7 +2,7 @@ package com.greywolf.community.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greywolf.community.Util.PathUtil;
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.model.user;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class RegisterController {
     }
     @PostMapping("/goRegister")
     @ResponseBody
-    public String doRegister(UserData userData){
+    public String doRegister(user userData){
         userService.addUser(userData,imagePath);
         return "注册成功";
     }

@@ -1,16 +1,18 @@
 package com.greywolf.community.service.serviceImpl;
 
 import com.greywolf.community.dbo.UserQuestionDTO;
-import com.greywolf.community.mapper.Question;
-import com.greywolf.community.mapper.QuestionMapper;
-import com.greywolf.community.mapper.UserData;
+import com.greywolf.community.mapper.questionMapper;
 import com.greywolf.community.mapper.userMapper;
+import com.greywolf.community.model.question;
+import com.greywolf.community.model.questionExample;
+import com.greywolf.community.model.user;
+import com.greywolf.community.model.userExample;
 import com.greywolf.community.service.QuestionService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +23,20 @@ import java.util.List;
 
 @Service
 public class QuestionImpl implements QuestionService {
+    private final Integer number=0;
     @Autowired
-    QuestionMapper questionMapper;
+    questionMapper questionMapper;
     @Autowired
     userMapper userMapper;
     @Override
-    public void doPublish(Question question,String creatorToken) {
+    public void doPublish(question question, String creatorToken) {
+        question.setCommentCount(number);
+        question.setLikeCount(number);
+        question.setViewCount(number);
         question.setCreator(creatorToken);
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        questionMapper.create(question);
+        question.setGmtcreate(System.currentTimeMillis());
+        question.setGmtmodified(question.getGmtcreate());
+        questionMapper.insert(question);
     }
 
 
@@ -41,15 +47,21 @@ public class QuestionImpl implements QuestionService {
         int limits=5;
         Date date=new Date();
         //        获取分页开始的数字
-        int limitFirst=(page-1)*limits;
+        int offset=(page-1)*limits;
         List<UserQuestionDTO> UserQuestionlist=new ArrayList<>();
-        List<Question> question = questionMapper.getQuestion(limitFirst,limits);
-        for (Question UserQuestion:question) {
+        questionExample example1 = new questionExample();
+//        排序
+        example1.setOrderByClause("gmtcreate DESC");
+        List<question> questions = questionMapper.selectByExampleWithRowbounds(example1,new RowBounds(offset, limits));
+        for (question UserQuestion:questions) {
             UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
-            UserData userData = userMapper.selectUserByToken(UserQuestion.getCreator());
-            userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarUrl());
+            userExample example = new userExample();
+            example.createCriteria().andTokenEqualTo(UserQuestion.getCreator());
+            List<user> users = userMapper.selectByExample(example);
+            user userData =users.get(0);
+            userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarurl());
             //将毫秒值转化成日期
-            date.setTime(UserQuestion.getGmtCreate());
+            date.setTime(UserQuestion.getGmtcreate());
             userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
             BeanUtils.copyProperties(UserQuestion,userQuestionDTO);
             UserQuestionlist.add(userQuestionDTO);
@@ -59,7 +71,7 @@ public class QuestionImpl implements QuestionService {
     @Cacheable(value = "count")
     @Override
     public int getCount(){
-        return questionMapper.getConunt();
+        return (int)questionMapper.countByExample(new questionExample());
     }
     @Override
     public int getPages(){
@@ -74,14 +86,21 @@ public class QuestionImpl implements QuestionService {
         int limits=5;
         Date date=new Date();
         //        获取分页开始的数字
-        int limitFirst=(page-1)*limits;
+        int offset=(page-1)*limits;
         List<UserQuestionDTO> UserQuestionlist=new ArrayList<>();
-        List<Question> questionByToken = questionMapper.getQuestionByToken(limitFirst, limits, token);
-        for (Question question :questionByToken) {
+        questionExample example = new questionExample();
+        example.createCriteria().andCreatorEqualTo(token);
+        example.setOrderByClause("gmtcreate DESC");
+        List<question> questions = questionMapper.selectByExampleWithRowbounds(example,
+                new RowBounds(offset, limits));
+        for (question question :questions) {
             UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
-            UserData userData = userMapper.selectUserByToken(token);
-            userQuestionDTO.setAvatarUrl("/images/"+userData.getAvatarUrl());
-            date.setTime(question.getGmtCreate());
+            userExample example1 = new userExample();
+            example1.createCriteria().andTokenEqualTo(token);
+            List<user> users = userMapper.selectByExample(example1);
+            user userData=users.get(0);
+            userQuestionDTO.setAvatarUrl("/images/"+userData.getAvatarurl());
+            date.setTime(question.getGmtcreate());
             userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
 //            这个方法是将第一个对象中的与第二个对象中的属性相同的属性复制到第二个对象中
             BeanUtils.copyProperties(question,userQuestionDTO);
