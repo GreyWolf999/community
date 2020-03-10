@@ -52,7 +52,7 @@
                     //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
                         lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
-                            +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check" class="question">'
+                            +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check?title='+item.title+'"'+' class="question">'
                             +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
                             +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
                             +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');

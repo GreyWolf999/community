@@ -2,6 +2,8 @@
     width: 70px;
     height: 70px;
     border-radius: 15%;
+    float: left;
+    margin-top: 5px;
 }
 .textpei{
     margin-left: 20px;
@@ -53,4 +55,15 @@
 }
 .labersty{
     font-family: cursive;
+}
+.textarealayui{
+    background-color: cornsilk;
+    height: 500px;
+    margin-top: 10px;
+    float: left;
+    padding-top: 15px;
+}
+.checkTitle{
+    float: left;
+    margin-left: 40px;
 }

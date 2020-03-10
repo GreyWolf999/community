@@ -17,8 +17,7 @@ public class UserProfieController {
     UserService userService;
     @GetMapping("/community/profie")
 //    路径在根路径的下一级 所以在页面中引入资源的时候需要加一个“/”返回上一级
-    public String goProfie(HttpServletRequest request,
-                           Model model){
+    public String goProfie(HttpServletRequest request){
         String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
         if (tokenByCookie != null){
             user userData = userService.selectByToken(tokenByCookie);

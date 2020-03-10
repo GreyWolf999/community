@@ -13,7 +13,17 @@ public interface QuestionService {
     int getPages();
 
     List<UserQuestionDTO> getQuestionByToken(int page, String token);
-     //用来清除更新了相关属性的缓存
+
+    question getSelectedQuestionByTitle(String title);
+
+    void updateQuestion(String title, String description, String tag);
+
+    UserQuestionDTO getQuestionDto(String title);
+
+
+    void updateViewCount(Integer viewCount, Integer idPrimy);
+
+    //用来清除更新了相关属性的缓存
      void cleanCache();
      void cleanCacheByToken();
      void cleanCount();

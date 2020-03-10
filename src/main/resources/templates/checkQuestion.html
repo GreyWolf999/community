@@ -17,9 +17,21 @@
 <div class="row navp" >
     <div class="heads">
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-        <h1 class="fontfa"><span class="glyphicon glyphicon-list" aria-hidden="true" ></span>发现</h1>
-        <hr>
-
+        <div>
+               <a href="#">
+                    <img class="media-object imageT"th:src="${checkselectedQuestion.getAvatarUrl()}" >
+                </a>
+                <div class="checkTitle">
+                <h4 class="media-heading question" th:text="${checkselectedQuestion.getTitle()}"></h4><br>
+                <h4 class="tagdiy" th:text="${checkselectedQuestion.getTag()}"></h4><br>
+                    <span><span th:text="${checkselectedQuestion.getCommentCount()}"></span>个回复 • <span th:text="${checkselectedQuestion.getViewCount()}"></span>次浏览
+                        •<span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                </div>
+                <div class="layui-input-block">
+                    <textarea name="desc"  class="layui-textarea textarealayui" readonly>[[${checkselectedQuestion.getDescription()}]]</textarea>
+                </div>
+                <hr>
+        </div>
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>热门话题</h1>

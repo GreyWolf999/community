@@ -24,6 +24,7 @@ import java.util.List;
 @Service
 public class QuestionImpl implements QuestionService {
     private final Integer number=0;
+    private Integer idPrimy;
     @Autowired
     questionMapper questionMapper;
     @Autowired
@@ -107,6 +108,46 @@ public class QuestionImpl implements QuestionService {
             UserQuestionlist.add(userQuestionDTO);
         }
         return UserQuestionlist;
+    }
+    /*
+    * 根据点击标题回显问题信息*/
+    @Override
+    public question getSelectedQuestionByTitle(String title){
+        questionExample example = new questionExample();
+        example.createCriteria().andTitleEqualTo(title);
+        List<question> questions=questionMapper.selectByExampleWithBLOBs(example);
+        idPrimy=questions.get(0).getId();
+        return questions.get(0);
+    }
+    /*
+    * 根据主键进行更新问题*/
+    @Override
+    public void updateQuestion(String title, String description, String tag){
+        question record = new question();
+        record.setId(idPrimy);
+        record.setTitle(title);
+        record.setDescription(description);
+        record.setTag(tag);
+       questionMapper.updateByPrimaryKeySelective(record);
+    }
+    //根据标题进行查询 用来展示想要查看的问题
+    @Override
+    public UserQuestionDTO getQuestionDto(String title){
+        UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
+        question selectedQuestionByTitle = getSelectedQuestionByTitle(title);
+        userExample example = new userExample();
+        example.createCriteria().andTokenEqualTo(selectedQuestionByTitle.getCreator());
+        List<user> users = userMapper.selectByExample(example);
+        BeanUtils.copyProperties(selectedQuestionByTitle,userQuestionDTO);
+        userQuestionDTO.setAvatarUrl("images/"+users.get(0).getAvatarurl());
+        return userQuestionDTO;
+    }
+    @Override
+    public void updateViewCount(Integer viewCount,Integer idPrimy){
+        question record = new question();
+        record.setId(idPrimy);
+        record.setViewCount(viewCount);
+        questionMapper.updateByPrimaryKeySelective(record);
     }
     //用来清除更新了相关属性的缓存
     @CacheEvict(value = "questionList",allEntries = true)
