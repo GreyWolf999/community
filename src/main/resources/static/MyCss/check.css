@@ -1,6 +1,6 @@
 .imageT{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 15%;
     float: left;
     margin-top: 5px;
@@ -58,12 +58,51 @@
 }
 .textarealayui{
     background-color: cornsilk;
-    height: 500px;
+    height: 380px;
     margin-top: 10px;
     float: left;
     padding-top: 15px;
+
 }
 .checkTitle{
     float: left;
     margin-left: 40px;
+}
+.comment{
+    float: left;
+    margin-top: 10px;
+    margin-left: 109px;
+    font-family: cursive;
+}
+.dianzan{
+    padding-left: 20px;
+}
+.commentText{
+    margin-top: 60px;
+    margin-left: 109px;
+    font-size: 25px;
+    font-family: cursive;
+    height: 100px;
+    float: left;
+}
+.layui-textarea{
+    min-height: 20px;
+}
+.commentByOther{
+    background-color: cornsilk;
+    height: 40px;
+    margin-top: 10px;
+    float: left;
+    padding-top: 9px;
+}
+.btnComment{
+    float: right;
+    margin-top: 15px;
+}
+.commentList{
+    float: left;
+    margin-left: 109px;
+}
+.media{
+    overflow: inherit;
 }

@@ -26,16 +26,35 @@
                 <h4 class="tagdiy" th:text="${checkselectedQuestion.getTag()}"></h4><br>
                     <span><span th:text="${checkselectedQuestion.getCommentCount()}"></span>个回复 • <span th:text="${checkselectedQuestion.getViewCount()}"></span>次浏览
                         •<span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                    <input type="hidden" id="hiddenId" th:value="${checkselectedQuestion.getId()}">
                 </div>
                 <div class="layui-input-block">
-                    <textarea name="desc"  class="layui-textarea textarealayui" readonly>[[${checkselectedQuestion.getDescription()}]]</textarea>
+                    <textarea name="desc" id="commentByOther" class="layui-textarea textarealayui" readonly>[[${checkselectedQuestion.getDescription()}]]</textarea>
                 </div>
-                <hr>
         </div>
+        <hr>
+        <span class="comment"><span>评论</span><a href="#" class="dianzan">点赞</a></span>
+        <div class="layui-input-block">
+            <textarea id="comments"  class="layui-textarea commentByOther"></textarea>
+        </div>
+        <button type="button" class="btn btn-default labersty btnComment" onclick="doComment()">发布</button>
+<!--        <div class="commentText">抱歉亲 占时没有评论</div>-->
+        <div class="media commentList" th:each="comentList:${comentDtoList}">
+            <div class="media-left media-middle" style="padding-left: 8px">
+                <a href="#">
+                    <img class="media-object imageT" th:src="${comentList.getAvatarUrl()}">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading" style="margin-top: 11px" th:text="${comentList.getComment()}"></h4>
+                <br>
+                <span>点赞·<span th:text="${#dates.format(comentList.getGmcreatc(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+            </div>
+        </div>
+<!--        <ul class="flow-default" id="commentList"></ul>-->
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>热门话题</h1>
-
     </div>
     </div>
 </div>
@@ -43,33 +62,6 @@
 <script th:inline="javascript">
     layui.use('layer', function(){
         var layer = layui.layer;
-    });
-    $('#login').on('click', function(){
-        layer.open({
-            type:2
-            ,title:'登陆框'
-            ,content:['/goLogin','no',]
-            ,area: ['500px', '62%']
-            ,shadeClose:true
-            ,offset: 'auto'
-            , zIndex: layer.zIndex
-            , success: function (layero) {
-                layer.setTop(layero); //重点2
-            },
-            end: function () {
-                window.location.reload();
-            }
-        });
-    });
-    $('#register').on('click', function(){
-        layer.open({
-            type:2
-            ,title:'登陆框'
-            ,content:['/goRegister','no',]
-            ,area: ['500px', '62%']
-            ,shadeClose:true
-            ,offset: 'auto'
-        });
     });
     // 注销
     function doLogout() {
@@ -87,6 +79,44 @@
             }
         })
     }
+    function doComment() {
+        var PrimyId=$("#hiddenId").val();
+        $.ajax({
+            url:"/doComment/"+PrimyId,
+            type:"POST",
+            sync:false,
+            data:{commentText:$("#comments").val()},
+            success: function (data) {
+                $("#comments").val("");
+                layer.msg(data);
+                window.location.reload();
+            }
+        })
+    }
+
+    // layui.use('flow', function(){
+    //     var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+    //     var flow = layui.flow;
+    //     flow.load({
+    //         elem: '#commentList' //指定列表容器
+    //         ,end:'<div class="commentText">抱歉亲 占时没有评论</div>'
+    //         ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+    //             var lis = [];
+    //             //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+    //             $.post('/?page='+page, function(res){
+    //                 //假设你的列表返回在data集合中
+    //                 layui.each(res.data, function(index, item){
+    //                     // lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
+    //                     //     +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check?title='+item.title+'"'+' class="question">'
+    //                     //     +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
+    //                     //     +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
+    //                     //     +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');
+    //                 });
+    //                 next(lis.join(''), page <res.pages);
+    //             });
+    //         }
+    //     });
+    // })
 </script>
 </body>
 </html>
