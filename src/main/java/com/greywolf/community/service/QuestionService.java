@@ -23,6 +23,10 @@ public interface QuestionService {
 
     void updateViewCount(Integer viewCount, Integer idPrimy);
 
+    Integer getCommentCounts(Integer PrimyId);
+
+    void updateCommentCounts(Integer CommentCounts, Integer PrimyId);
+
     //用来清除更新了相关属性的缓存
      void cleanCache();
      void cleanCacheByToken();

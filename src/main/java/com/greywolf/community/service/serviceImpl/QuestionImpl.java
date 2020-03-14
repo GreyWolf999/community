@@ -149,6 +149,17 @@ public class QuestionImpl implements QuestionService {
         record.setViewCount(viewCount);
         questionMapper.updateByPrimaryKeySelective(record);
     }
+    @Override
+    public Integer getCommentCounts(Integer PrimyId){
+        return questionMapper.selectByPrimaryKey(PrimyId).getCommentCount();
+    }
+    @Override
+    public void updateCommentCounts(Integer CommentCounts, Integer PrimyId){
+        question record = new question();
+        record.setId(PrimyId);
+        record.setCommentCount(CommentCounts);
+        questionMapper.updateByPrimaryKeySelective(record);
+    }
     //用来清除更新了相关属性的缓存
     @CacheEvict(value = "questionList",allEntries = true)
     @Override

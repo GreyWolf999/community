@@ -6,6 +6,7 @@ import com.greywolf.community.model.comments;
 import com.greywolf.community.model.commentsExample;
 import com.greywolf.community.model.user;
 import com.greywolf.community.service.CommentService;
+import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

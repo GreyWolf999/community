@@ -30,7 +30,9 @@ public class checkController {
         questionService.updateViewCount(viewCount,questionDto.getId());
         model.addAttribute("checkselectedQuestion",questionDto);
         List<CommentDTO> commentDTO = commentService.getCommentDTO(questionDto.getId());
-        model.addAttribute("comentDtoList",commentDTO);
+        if (commentDTO.size() != 0){
+            model.addAttribute("comentDtoList",commentDTO);
+        }else model.addAttribute("comentDtoList",null);
         questionService.cleanCache();
         questionService.cleanCacheByToken();
         return "checkQuestion";

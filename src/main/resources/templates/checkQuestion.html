@@ -38,7 +38,7 @@
             <textarea id="comments"  class="layui-textarea commentByOther"></textarea>
         </div>
         <button type="button" class="btn btn-default labersty btnComment" onclick="doComment()">发布</button>
-<!--        <div class="commentText">抱歉亲 占时没有评论</div>-->
+        <div class="commentText" th:if="${comentDtoList == null}">抱歉亲 占时没有评论</div>
         <div class="media commentList" th:each="comentList:${comentDtoList}">
             <div class="media-left media-middle" style="padding-left: 8px">
                 <a href="#">
@@ -87,8 +87,6 @@
             sync:false,
             data:{commentText:$("#comments").val()},
             success: function (data) {
-                $("#comments").val("");
-                layer.msg(data);
                 window.location.reload();
             }
         })
