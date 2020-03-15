@@ -102,7 +102,23 @@
 .commentList{
     float: left;
     margin-left: 109px;
+    margin-top: 13px;
 }
 .media{
     overflow: inherit;
+}
+.topicList{
+    margin-top: 22px;
+}
+.topicQuestion{
+    font-family: cursive;
+    font-size: 15px;
+    float: left;
+    color: #337ab7;
+}
+.icon_Topic{
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: 10px;
 }

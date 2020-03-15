@@ -53,3 +53,18 @@
 .labersty{
     font-family: cursive;
 }
+.topicList{
+    margin-top: 22px;
+}
+.topic{
+    font-family: cursive;
+    font-size: 15px;
+    float: left;
+    color: #337ab7;
+}
+.iconTopic{
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-top: 10px;
+}

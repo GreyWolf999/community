@@ -49,12 +49,22 @@
                 <h4 class="media-heading" style="margin-top: 11px" th:text="${comentList.getComment()}"></h4>
                 <br>
                 <span>点赞·<span th:text="${#dates.format(comentList.getGmcreatc(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                <br>
+                <hr>
             </div>
         </div>
 <!--        <ul class="flow-default" id="commentList"></ul>-->
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>热门话题</h1>
+        <div class="topicList">
+            <div class="media" th:each="topicQuestion:${TopicQuestion}">
+                <div class="media-body">
+                    <span><a th:href="@{'/check?title='+${topicQuestion.getTitle()}}" class="media-heading topicQuestion" style="margin-top: 11px;" th:text="${topicQuestion.getTitle()}"></a><img th:src="@{images/小火苗.jpg}" class="icon_Topic"></span>
+                </div>
+            </div>
+        </div>
+        <hr>
     </div>
     </div>
 </div>

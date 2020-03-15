@@ -2,8 +2,10 @@ package com.greywolf.community.Controller;
 
 import com.greywolf.community.dbo.CommentDTO;
 import com.greywolf.community.dbo.UserQuestionDTO;
+import com.greywolf.community.model.topicQuestion;
 import com.greywolf.community.service.CommentService;
 import com.greywolf.community.service.QuestionService;
+import com.greywolf.community.service.TopicService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import java.util.List;
 @Controller
 public class checkController {
     @Autowired
+    TopicService topicService;
+    @Autowired
     QuestionService questionService;
     @Autowired
     UserService userService;
@@ -24,6 +28,12 @@ public class checkController {
     @GetMapping("/check")
     public String gocheck(@RequestParam("title") String title,
                           Model model){
+        //        将热门话题数据展示
+        List<topicQuestion> topicQuestion = topicService.getTopicQuestion();
+        if (topicQuestion.size() != 0){
+            model.addAttribute("TopicQuestion",topicQuestion);
+        }else model.addAttribute("TopicQuestion",null);
+
         UserQuestionDTO questionDto = questionService.getQuestionDto(title);
         Integer viewCount= questionDto.getViewCount();
         viewCount++;

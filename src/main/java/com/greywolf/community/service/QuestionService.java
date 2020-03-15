@@ -27,6 +27,8 @@ public interface QuestionService {
 
     void updateCommentCounts(Integer CommentCounts, Integer PrimyId);
 
+    List<question> getTopicQuestion();
+
     //用来清除更新了相关属性的缓存
      void cleanCache();
      void cleanCacheByToken();

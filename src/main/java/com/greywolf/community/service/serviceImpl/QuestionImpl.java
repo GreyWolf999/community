@@ -160,6 +160,17 @@ public class QuestionImpl implements QuestionService {
         record.setCommentCount(CommentCounts);
         questionMapper.updateByPrimaryKeySelective(record);
     }
+    @Override
+    public List<question> getTopicQuestion(){
+        List<question> questionTopic=new ArrayList<>();
+        questionExample example = new questionExample();
+        example.setOrderByClause("view_count DESC");
+        List<question> questions = questionMapper.selectByExample(example);
+        for (int i = 0; i < 6; i++) {
+            questionTopic.add(questions.get(i));
+        }
+        return questionTopic;
+    }
     //用来清除更新了相关属性的缓存
     @CacheEvict(value = "questionList",allEntries = true)
     @Override
