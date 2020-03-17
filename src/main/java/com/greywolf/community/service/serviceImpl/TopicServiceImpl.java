@@ -8,6 +8,8 @@ import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.TopicService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class TopicServiceImpl implements TopicService {
     @Autowired
     QuestionService questionService;
     @Scheduled(cron = "0 0 18 * * ?")//每天的18点整执行一次
+    @CacheEvict(value = "TopicQuestion",allEntries = true)
     @Override
     public void topicQuestion(){
         List<topicQuestion> topicQuestions = selectTopicQuestions();
@@ -33,6 +36,7 @@ public class TopicServiceImpl implements TopicService {
             topicQuestionMapper.insert(record);
         }
     }
+    @Cacheable(value = "TopicQuestion")
     @Override
     public List<topicQuestion> getTopicQuestion(){
         topicQuestionExample example = new topicQuestionExample();

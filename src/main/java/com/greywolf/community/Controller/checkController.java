@@ -18,6 +18,8 @@ import java.util.List;
 @Controller
 public class checkController {
     @Autowired
+    updateLikeCountsController updateLikeCountsController;
+    @Autowired
     TopicService topicService;
     @Autowired
     QuestionService questionService;
@@ -35,6 +37,12 @@ public class checkController {
         }else model.addAttribute("TopicQuestion",null);
 
         UserQuestionDTO questionDto = questionService.getQuestionDto(title);
+        if (updateLikeCountsController.primyId == questionDto.getId()){
+                model.addAttribute("likeStatus",false);
+        }else {
+            model.addAttribute("likeStatus",true);
+        }
+
         Integer viewCount= questionDto.getViewCount();
         viewCount++;
         questionService.updateViewCount(viewCount,questionDto.getId());

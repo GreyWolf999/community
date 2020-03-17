@@ -161,6 +161,19 @@ public class QuestionImpl implements QuestionService {
         questionMapper.updateByPrimaryKeySelective(record);
     }
     @Override
+    public void updateLikeCOunts(Integer PrimyId){
+        Integer likeCount = questionMapper.selectByPrimaryKey(PrimyId).getLikeCount();
+        likeCount++;
+        question record = new question();
+        record.setId(PrimyId);
+        record.setLikeCount(likeCount);
+        questionMapper.updateByPrimaryKeySelective(record);
+    }
+    @Override
+    public question selectByPrimyId(Integer PrimyId){
+        return questionMapper.selectByPrimaryKey(PrimyId);
+    }
+    @Override
     public List<question> getTopicQuestion(){
         List<question> questionTopic=new ArrayList<>();
         questionExample example = new questionExample();

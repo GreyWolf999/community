@@ -25,7 +25,7 @@
                 <h4 class="media-heading question" th:text="${checkselectedQuestion.getTitle()}"></h4><br>
                 <h4 class="tagdiy" th:text="${checkselectedQuestion.getTag()}"></h4><br>
                     <span><span th:text="${checkselectedQuestion.getCommentCount()}"></span>个回复 • <span th:text="${checkselectedQuestion.getViewCount()}"></span>次浏览
-                        •<span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                        •<span th:text="${checkselectedQuestion.getLikeCount()}">人点赞·</span><span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
                     <input type="hidden" id="hiddenId" th:value="${checkselectedQuestion.getId()}">
                 </div>
                 <div class="layui-input-block">
@@ -33,7 +33,7 @@
                 </div>
         </div>
         <hr>
-        <span class="comment"><span>评论</span><a href="#" class="dianzan">点赞</a></span>
+        <span class="comment"><span>评论</span><span href="#" class="dianzan">点赞</span></span><img class="likeIcon"  th:src="@{images/点赞图标.jpg}" id="likeIcon">
         <div class="layui-input-block">
             <textarea id="comments"  class="layui-textarea commentByOther"></textarea>
         </div>
@@ -73,6 +73,9 @@
     layui.use('layer', function(){
         var layer = layui.layer;
     });
+    if (![[${likeStatus}]]) {
+        $("#likeIcon").attr("src","images/以点赞图标.jpg");
+    }
     // 注销
     function doLogout() {
         $.ajax({
@@ -101,6 +104,19 @@
             }
         })
     }
+   $("#likeIcon").click(function () {
+       $.ajax({
+           url:"/updateLikeCounts?ID="+[[${checkselectedQuestion.getId()}]],
+           type:"POST",
+           sync:false,
+           success: function (data) {
+             layer.msg(data);
+             $("#likeIcon").attr("src","images/以点赞图标.jpg");
+             // 注销点击事件
+             $("#likeIcon").unbind("click")
+           }
+       })
+   })
 
     // layui.use('flow', function(){
     //     var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
@@ -127,4 +143,3 @@
     // })
 </script>
 </body>
-</html>

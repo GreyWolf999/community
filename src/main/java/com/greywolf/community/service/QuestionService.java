@@ -27,6 +27,10 @@ public interface QuestionService {
 
     void updateCommentCounts(Integer CommentCounts, Integer PrimyId);
 
+    void updateLikeCOunts(Integer PrimyId);
+
+    question selectByPrimyId(Integer PrimyId);
+
     List<question> getTopicQuestion();
 
     //用来清除更新了相关属性的缓存
