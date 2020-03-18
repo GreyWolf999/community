@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.greywolf.community.mapper")
-@EnableCaching
+//@EnableCaching
 public class CommunityApplication {
     public static void main(String[] args) {
         SpringApplication.run(CommunityApplication.class, args);
