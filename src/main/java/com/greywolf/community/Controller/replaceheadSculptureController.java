@@ -40,8 +40,8 @@ public class replaceheadSculptureController {
             String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
             if (tokenByCookie !=null){
                 userService.replaceHeadSculpture(fileName,tokenByCookie);
-                        questionService.cleanCache();
-                        questionService.cleanCacheByToken();
+//                        questionService.cleanCache();
+//                        questionService.cleanCacheByToken();
             }
             File imageFile = new PathUtil().getImageFile();
             String absolutePath = imageFile.getAbsolutePath();

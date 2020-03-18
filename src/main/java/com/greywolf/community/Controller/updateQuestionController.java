@@ -35,8 +35,8 @@ public class updateQuestionController {
     public String doUpdateQuestion(question question,
                                    HttpServletRequest request){
         questionService.updateQuestion(question.getTitle(),question.getDescription(),question.getTag());
-        questionService.cleanCacheByToken();
-        questionService.cleanCache();
+//        questionService.cleanCacheByToken();
+//        questionService.cleanCache();
         //更新成功后返回个人中心页面
         String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
         if (tokenByCookie != null){

@@ -28,8 +28,8 @@ public class publishComtroller {
         String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
         if (tokenByCookie !=null){
             questionService.doPublish(question,tokenByCookie);
-            questionService.cleanCache();
-            questionService.cleanCacheByToken();
+//            questionService.cleanCache();
+//            questionService.cleanCacheByToken();
         }
 
         /*

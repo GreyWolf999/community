@@ -25,10 +25,10 @@ public class logoutController {
     @GetMapping("/logout")
     @ResponseBody
     @CacheEvict(value = "user",allEntries = true )
-    public String doLogout(HttpServletRequest request, HttpServletResponse response){
-        questionService.cleanCache();
-        questionService.cleanCount();
-        questionService.cleanCacheByToken();
+//    public String doLogout(HttpServletRequest request, HttpServletResponse response){
+//        questionService.cleanCache();
+//        questionService.cleanCount();
+//        questionService.cleanCacheByToken();
         //移除session中的数据
         request.getSession().removeAttribute("user");
         Cookie[] cookies = request.getCookies();

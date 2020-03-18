@@ -51,8 +51,8 @@ public class checkController {
         if (commentDTO.size() != 0){
             model.addAttribute("comentDtoList",commentDTO);
         }else model.addAttribute("comentDtoList",null);
-        questionService.cleanCache();
-        questionService.cleanCacheByToken();
+//        questionService.cleanCache();
+//        questionService.cleanCacheByToken();
         return "checkQuestion";
     }
 }

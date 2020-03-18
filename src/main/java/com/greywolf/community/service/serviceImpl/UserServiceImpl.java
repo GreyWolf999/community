@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             }else return null;
     }
     @Override
-    @Cacheable(value = "user",key = "#token",sync = true)
+//    @Cacheable(value = "user",key = "#token",sync = true)
     public user selectByToken(String token) {
         try {
             userExample example = new userExample();
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @CachePut(value = "user",key = "#token")
+//    @CachePut(value = "user",key = "#token")
     public user replaceHeadSculpture(String avatarUrl, String token){
         user record = new user();
         record.setAvatarurl(avatarUrl);

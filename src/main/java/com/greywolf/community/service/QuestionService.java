@@ -33,8 +33,8 @@ public interface QuestionService {
 
     List<question> getTopicQuestion();
 
-    //用来清除更新了相关属性的缓存
-     void cleanCache();
-     void cleanCacheByToken();
-     void cleanCount();
+//    //用来清除更新了相关属性的缓存
+//     void cleanCache();
+//     void cleanCacheByToken();
+//     void cleanCount();
 }

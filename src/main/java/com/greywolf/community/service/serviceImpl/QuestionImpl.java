@@ -41,7 +41,7 @@ public class QuestionImpl implements QuestionService {
     }
 
 
-    @Cacheable(value = "questionList")
+//    @Cacheable(value = "questionList")
     @Override
     public List<UserQuestionDTO> doshow(int page) {
 //        自定义分页数目
@@ -69,7 +69,7 @@ public class QuestionImpl implements QuestionService {
         }
         return UserQuestionlist;
     }
-    @Cacheable(value = "count")
+//    @Cacheable(value = "count")
     @Override
     public int getCount(){
         return (int)questionMapper.countByExample(new questionExample());
@@ -81,7 +81,7 @@ public class QuestionImpl implements QuestionService {
             return count/5;
         }else return count/5+1;
     }
-    @Cacheable(value = "questionListByToken")
+//    @Cacheable(value = "questionListByToken")
     @Override
     public List<UserQuestionDTO> getQuestionByToken(int page,String token){
         int limits=5;
@@ -185,15 +185,15 @@ public class QuestionImpl implements QuestionService {
         return questionTopic;
     }
     //用来清除更新了相关属性的缓存
-    @CacheEvict(value = "questionList",allEntries = true)
-    @Override
-    public void cleanCache(){
-    }
-
-    @CacheEvict(value = "questionListByToken",allEntries = true)
-    @Override
-    public void cleanCacheByToken(){}
-    @CacheEvict(value = "count",allEntries = true)
-    @Override
-    public void cleanCount(){}
+//    @CacheEvict(value = "questionList",allEntries = true)
+//    @Override
+//    public void cleanCache(){
+//    }
+//
+//    @CacheEvict(value = "questionListByToken",allEntries = true)
+//    @Override
+//    public void cleanCacheByToken(){}
+//    @CacheEvict(value = "count",allEntries = true)
+//    @Override
+//    public void cleanCount(){}
 }
