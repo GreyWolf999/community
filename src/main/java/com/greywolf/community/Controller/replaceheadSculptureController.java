@@ -29,8 +29,7 @@ public class replaceheadSculptureController {
     @Autowired
     ObjectMapper objectMapper;
     @PostMapping("/replaceHead")
-    @ResponseBody
-    public String replaceHead(@RequestParam(value="file",required=false) MultipartFile file,
+    public @ResponseBody String replaceHead(@RequestParam(value="file",required=false) MultipartFile file,
                               HttpServletRequest request) throws JsonProcessingException {
         //        将文件保存在项目下的satic的images文件夹下
 

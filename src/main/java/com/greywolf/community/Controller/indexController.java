@@ -38,6 +38,7 @@ public class indexController {
    @GetMapping("/")
    public String goIndex(HttpServletRequest request,
                          Model model){
+
        //        将热门话题数据展示
        List<topicQuestion> topicQuestion = topicService.getTopicQuestion();
        if (topicQuestion.size() != 0){

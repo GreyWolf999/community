@@ -22,7 +22,7 @@
                         <img th:src="${session.user.getAvatarurl()}" class="imaged" id="image2">
                         <a href="#" class="dropdown-toggle labersty" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}" style="float: right"></a><span class="caret"></span>
                         <ul class="dropdown-menu" th:if="${session.user !=null}" >
-                            <li><a href="/community/profie" class="labersty">个人信息</a></li>
+                            <li><a href="/profie" class="labersty">个人信息</a></li>
                             <li><a href="#" class="labersty">安全管理</a></li>
                             <li><a href="#" onclick="doLogout()" class="labersty">注销登陆</a></li>
                         </ul>

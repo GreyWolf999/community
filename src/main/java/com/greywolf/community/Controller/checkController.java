@@ -45,6 +45,7 @@ public class checkController {
 
         Integer viewCount= questionDto.getViewCount();
         viewCount++;
+
         questionService.updateViewCount(viewCount,questionDto.getId());
         model.addAttribute("checkselectedQuestion",questionDto);
         List<CommentDTO> commentDTO = commentService.getCommentDTO(questionDto.getId());

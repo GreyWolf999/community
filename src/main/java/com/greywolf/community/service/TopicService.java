@@ -14,4 +14,5 @@ public interface TopicService {
     void clearTopicQuestions(Integer PrimyId);
 
     List<topicQuestion> selectTopicQuestions();
+
 }

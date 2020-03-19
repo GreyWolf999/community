@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
             List<user> users = userMapper.selectByExample(example);
             if (users.size()!=0){
                user user= users.get(0);
-                user.setAvatarurl("images/"+user.getAvatarurl());
+//                user.setAvatarurl("images/"+user.getAvatarurl());
+                user.setAvatarurl(user.getAvatarurl());
              return user;
             }else return null;
     }
@@ -46,7 +47,8 @@ public class UserServiceImpl implements UserService {
             example.createCriteria().andTokenEqualTo(token);
             List<user> users = userMapper.selectByExample(example);
             user user=users.get(0);
-            user.setAvatarurl("images/"+user.getAvatarurl());
+//            user.setAvatarurl("images/"+user.getAvatarurl());
+            user.setAvatarurl(user.getAvatarurl());
             return user;
         }catch (Exception e){
             return null;
@@ -93,7 +95,8 @@ public class UserServiceImpl implements UserService {
         userExample.createCriteria().andTokenEqualTo(token);
         List<user> users = userMapper.selectByExample(userExample);
         user user =users.get(0);
-        user.setAvatarurl("images/"+user.getAvatarurl());
+//        user.setAvatarurl("images/"+user.getAvatarurl());
+        user.setAvatarurl(user.getAvatarurl());
         return user;
     }
 

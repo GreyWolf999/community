@@ -18,9 +18,15 @@ public class MyMvcConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginHandInterceptors)
+//                .addPathPatterns("/**").excludePathPatterns("/","/goRegister","/goLogin"
+//        ,"https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1",
+//                "/callback","/index.html","/MyCss/**","/images/**","/js/**","/go","/webjars/**","/upload");
+//    }
         registry.addInterceptor(loginHandInterceptors)
-                .addPathPatterns("/**").excludePathPatterns("/","/goRegister","/goLogin"
-        ,"https://github.com/login/oauth/authorize?client_id=Iv1.3c9d32b8aa6ffd83&redirect_uri=http://localhost:8887/callback&scope=user&state=1",
-                "/callback","/index.html","/MyCss/**","/images/**","/js/**","/go","/webjars/**","/upload");
+                .addPathPatterns("/publish","/check","/profie");
+//        registry.addInterceptor(loginTimeOut).addPathPatterns("/check","/publish","/profile","/callback","/doComment","/"
+//                ,"/goLogin","/goMyQuestion","/personalCentral","/replaceHead","/goUpdateQuestion");
     }
+
 }

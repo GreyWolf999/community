@@ -22,7 +22,7 @@ public class TopicServiceImpl implements TopicService {
     @Autowired
     QuestionService questionService;
     @Scheduled(cron = "0 0 18 * * ?")//每天的18点整执行一次
-    @CacheEvict(value = "TopicQuestion",allEntries = true)
+//    @CacheEvict(value = "TopicQuestion",allEntries = true)
     @Override
     public void topicQuestion(){
         List<topicQuestion> topicQuestions = selectTopicQuestions();
@@ -36,7 +36,7 @@ public class TopicServiceImpl implements TopicService {
             topicQuestionMapper.insert(record);
         }
     }
-    @Cacheable(value = "TopicQuestion")
+//    @Cacheable(value = "TopicQuestion")
     @Override
     public List<topicQuestion> getTopicQuestion(){
         topicQuestionExample example = new topicQuestionExample();

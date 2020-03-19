@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 public class UserProfieController {
     @Autowired
     UserService userService;
-    @GetMapping("/community/profie")
+    @GetMapping("/profie")
 //    路径在根路径的下一级 所以在页面中引入资源的时候需要加一个“/”返回上一级
     public String goProfie(HttpServletRequest request){
         String tokenByCookie = new cookiesSelect().getTokenByCookie(request);
         if (tokenByCookie != null){
             user userData = userService.selectByToken(tokenByCookie);
-            userData.setAvatarurl("/"+userData.getAvatarurl());
+//            userData.setAvatarurl("/"+userData.getAvatarurl());
             request.getSession().setAttribute("user",userData);
         }
         return "UserProfile";

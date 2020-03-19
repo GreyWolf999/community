@@ -60,7 +60,8 @@ public class QuestionImpl implements QuestionService {
             example.createCriteria().andTokenEqualTo(UserQuestion.getCreator());
             List<user> users = userMapper.selectByExample(example);
             user userData =users.get(0);
-            userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarurl());
+//            userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarurl());
+            userQuestionDTO.setAvatarUrl(userData.getAvatarurl());
             //将毫秒值转化成日期
             date.setTime(UserQuestion.getGmtcreate());
             userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
@@ -100,7 +101,8 @@ public class QuestionImpl implements QuestionService {
             example1.createCriteria().andTokenEqualTo(token);
             List<user> users = userMapper.selectByExample(example1);
             user userData=users.get(0);
-            userQuestionDTO.setAvatarUrl("/images/"+userData.getAvatarurl());
+//            userQuestionDTO.setAvatarUrl("/images/"+userData.getAvatarurl());
+            userQuestionDTO.setAvatarUrl(userData.getAvatarurl());
             date.setTime(question.getGmtcreate());
             userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
 //            这个方法是将第一个对象中的与第二个对象中的属性相同的属性复制到第二个对象中
@@ -139,7 +141,7 @@ public class QuestionImpl implements QuestionService {
         example.createCriteria().andTokenEqualTo(selectedQuestionByTitle.getCreator());
         List<user> users = userMapper.selectByExample(example);
         BeanUtils.copyProperties(selectedQuestionByTitle,userQuestionDTO);
-        userQuestionDTO.setAvatarUrl("images/"+users.get(0).getAvatarurl());
+        userQuestionDTO.setAvatarUrl(users.get(0).getAvatarurl());
         return userQuestionDTO;
     }
     @Override
