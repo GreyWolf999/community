@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,7 @@ public class indexController {
     QuestionService questionService;
     @Autowired
     TopicService topicService;
-    @PostMapping("/")
+    @GetMapping("/data")
     @ResponseBody
     public Map<String, Object> index(@RequestParam("page") int page
                                      ){
@@ -51,6 +50,10 @@ public class indexController {
            request.getSession().setAttribute("user",userData);
        }
        return "index";
+   }
+   @GetMapping("/aaa")
+   public String aaa(){
+        return "footer";
    }
 }
 

@@ -27,7 +27,7 @@ public class myQuestionsController {
     QuestionService questionService;
     @GetMapping("/goMyQuestion")
     public String goMyQuestions(){
-        return "/myQuestions";
+        return "myQuestions";
     }
 
     @PostMapping("/myQuestionsList")

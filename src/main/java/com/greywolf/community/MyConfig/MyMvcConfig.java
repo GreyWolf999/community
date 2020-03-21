@@ -1,6 +1,7 @@
 package com.greywolf.community.MyConfig;
 
 import com.greywolf.community.component.LoginHandInterceptors;
+import com.greywolf.community.component.loginTimeOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,10 +12,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcConfig implements WebMvcConfigurer {
     @Autowired
    LoginHandInterceptors loginHandInterceptors;
+    @Autowired
+    loginTimeOut loginTimeOut;
     //视图映射器
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/login.html").setViewName("login");
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -25,8 +29,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
 //    }
         registry.addInterceptor(loginHandInterceptors)
                 .addPathPatterns("/publish","/check","/profie");
-//        registry.addInterceptor(loginTimeOut).addPathPatterns("/check","/publish","/profile","/callback","/doComment","/"
-//                ,"/goLogin","/goMyQuestion","/personalCentral","/replaceHead","/goUpdateQuestion");
+        registry.addInterceptor(loginTimeOut).addPathPatterns("/publish","/","/goLogin","/check","/doComment","/goMyQuestion",
+                "/personalCentral","/replaceHead","/updateLikeCounts","/goUpdateQuestion","/profie");
     }
 
 }

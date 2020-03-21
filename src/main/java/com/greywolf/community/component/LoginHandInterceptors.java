@@ -45,6 +45,7 @@ public class LoginHandInterceptors implements HandlerInterceptor {
                 request.setAttribute("TopicQuestion",topicQuestion);
             }else request.setAttribute("TopicQuestion",null);
             request.setAttribute("msg","您还未登陆 请先登陆！！！");
+            new cookiesSelect().cleanCookieAndSession(request,response);
             request.getRequestDispatcher("/index.html").forward(request,response);
             status=false;
         }

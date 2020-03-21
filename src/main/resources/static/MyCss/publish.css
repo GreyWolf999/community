@@ -35,15 +35,14 @@
 }
 .imaged{
     width: 35px;
-    float: none;
+    margin-left: 18px;
+    float: left;
     margin-top: 7px;
     border-radius: 50%;
 }
 .navp{
     background-color: snow;
-    width: 1300px;
-    margin: auto;
-    margin-top: 75px;
+    margin: 20px;
 }
 .fon{
     margin-top: 4px;

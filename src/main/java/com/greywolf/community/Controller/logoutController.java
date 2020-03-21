@@ -1,5 +1,6 @@
 package com.greywolf.community.Controller;
 
+import com.greywolf.community.component.cookiesSelect;
 import com.greywolf.community.service.QuestionService;
 import com.greywolf.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +31,7 @@ public class logoutController {
 //        questionService.cleanCacheByToken();
         //移除session中的数据
         request.getSession().removeAttribute("user");
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie:cookies){
-            if (cookie.getName().equals("UserToken")){
-                //执行销毁cookie 到达注销的目的
-                cookie.setMaxAge(0);
-//                cookie.setPath("/");
-                response.addCookie(cookie);
-            }
-        }
+        new cookiesSelect().cleanCookieAndSession(request,response);
         return "注销成功 退出登陆";
     }
 }
