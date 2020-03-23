@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>小新社区</title>
+    <link th:href="@{webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{webjars/jquery/3.4.0/jquery.js}"></script>
+    <script th:src="@{webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
+    <link rel="stylesheet" th:href="@{MyCss/publish.css}">
+
+</head>
+<body style="background-color: snow">
+<img src="images/社区图标2.jpg" style="margin-top: 5%;margin-left: 43%;border-radius: 10%;width: 16%;">
+<div style="margin-top: 10%;margin-left: 32%"><span style="font-size: 50px">小新社区账号注册</span></div>
+<form style="margin-left: 25px;margin-right: 25px;margin-top: 10%">
+    <div class="form-group login">
+        <label for="userText">用户名：</label>
+        <input type="text" class="form-control " name="name"  id="userText" placeholder="请输入用户名">
+    </div>
+    <div class="form-group ">
+        <label for="PasswordText">Password</label>
+        <input type="password" class="form-control " name="password"  id="PasswordText" placeholder="请输入密码">
+    </div>
+    <div class="form-group layui-upload">
+        <button type="button" class="layui-btn" id="upload" style="margin-top: 80px;float:left;background-color: cadetblue">上传图片</button>
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" id="image" style="width: 100px;float: left;margin-left: 50px;margin-top: 80px">
+            <p id="message"></p>
+        </div>
+    </div>
+    <button type="button" class="btn btn-default" style="margin-top: 80px;float: left; margin-left: 19%;background-color: antiquewhite" onclick="goIndex()">返回首页</button>
+    <button type="button" class="btn btn-default" style="margin-top: 80px;float: right;background-color: antiquewhite" onclick="doRegister()">点击注册</button>
+</form>
+<script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
+<script>
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+    function goIndex() {
+        window.location.href="/";
+    }
+    // 将注册信息传到后端
+    function doRegister(){
+        $.ajax({
+            url:"/goRegister",
+            type:"POST",
+            sync:false,
+            data:{
+                name: $("#userText").val(),
+                password: $("#PasswordText").val()
+            },
+            success:function (data) {
+                layer.alert(data);
+                window.location.href="/";
+            }
+        });
+    };
+    var index=layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#upload'
+            ,url: '/upload' //改成您自己的上传接口
+            ,accept:'images'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#image').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                return layer.msg('上传成功');
+            }
+            ,error: function(){
+                var demoText = $('#message');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

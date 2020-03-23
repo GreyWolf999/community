@@ -20,6 +20,7 @@
     font-family: cursive;
 }
 .textArea{
+    width: 100%;
     margin-top: 10px;
     height: 400px;
 }
@@ -42,7 +43,11 @@
 }
 .navp{
     background-color: snow;
-    margin: 20px;
+    margin: 30px;
+}
+.navSm{
+    background-color: snow;
+    margin: 3px;
 }
 .fon{
     margin-top: 4px;
@@ -55,4 +60,10 @@
 }
 .labersty{
     font-family: cursive;
+}
+.btnsm{
+    margin-left: 10px;
+    float: right;
+    margin-top: 80px;
+    background-color: antiquewhite
 }

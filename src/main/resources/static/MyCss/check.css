@@ -1,8 +1,21 @@
+.imageT3{
+    width: 60px;
+    height: 60px;
+    border-radius: 15%;
+    float: left;
+    margin-top: -17px;
+}
 .imageT{
     width: 60px;
     height: 60px;
     border-radius: 15%;
     float: left;
+    margin-top: 5px;
+}
+.imageT2{
+    width: 60px;
+    height: 60px;
+    border-radius: 15%;
     margin-top: 5px;
 }
 .textpei{
@@ -11,7 +24,11 @@
 }
 .navp{
     background-color: snow;
-    margin: 20px;
+    margin: 30px;
+}
+.navSm{
+    background-color: snow;
+    margin: 3px;
 }
 .bodys{
     background-color: beige;
@@ -46,7 +63,6 @@
     font-family: cursive;
     font-size: x-large;
     color: #337ab7;
-
 }
 .tagdiy{
     font-family: cursive;
@@ -70,7 +86,6 @@
 .comment{
     float: left;
     margin-top: 10px;
-    margin-left: 109px;
     font-family: cursive;
 }
 .dianzan{
@@ -78,14 +93,13 @@
 }
 .commentText{
     margin-top: 60px;
-    margin-left: 109px;
     font-size: 25px;
     font-family: cursive;
     height: 100px;
     float: left;
 }
 .layui-textarea{
-    min-height: 20px;
+    min-height: 40px;
 }
 .commentByOther{
     background-color: cornsilk;
@@ -100,8 +114,7 @@
 }
 .commentList{
     float: left;
-    margin-left: 109px;
-    margin-top: 13px;
+    margin-top: 5px;
 }
 .media{
     overflow: inherit;
@@ -122,8 +135,14 @@
     margin-top: 10px;
 }
 .likeIcon{
+    float: left;
     width:18px;
     height:18px;
     margin-left:4px;
     margin-top:9px
+
+}
+.layui-input-block{
+    margin-left: 0px;
+    min-height: 36px;
 }

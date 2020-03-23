@@ -14,9 +14,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" id="searchId" name="search" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">搜索</button>
+                <button type="button" class="btn btn-default" style="font-family: cursive;" onclick="doSearch()">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" th:if="${session.user ==null}" id="login" class="labersty">登陆</a></li>

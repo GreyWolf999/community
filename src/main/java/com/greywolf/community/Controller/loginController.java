@@ -21,6 +21,11 @@ public class loginController {
     public String login(){
         return "login";
     }
+    @GetMapping("/goSmLogin")
+    public String smlogin(){
+        return "smLogin";
+    }
+
     @PostMapping("/goLogin")
     @ResponseBody
     public Boolean doLogin(@RequestParam("name") String name,
@@ -31,13 +36,11 @@ public class loginController {
         if (userData !=null){
             request.getSession().setAttribute("user",userData);
             Cookie cookie = new Cookie("UserToken", userData.getToken());
-//           cookie的存活时间设置为15分钟
             cookie.setMaxAge(60*30);
             response.addCookie(cookie);
             return true;
         }else {
             return false;
         }
-
     }
 }

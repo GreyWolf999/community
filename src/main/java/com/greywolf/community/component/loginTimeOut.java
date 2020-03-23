@@ -33,7 +33,7 @@ public class loginTimeOut implements HandlerInterceptor {
         }else{
             //计算最新链接时间和上次链接时间的差值
             int intervalTime = (int)((lastAccessedTime - operateTime)/1000);
-//            System.out.println("操作的间隔时间："+intervalTime);
+//            System.out.println("操作的ap间隔时间："+intervalTime);
             //如果超过15分钟没有交互的话，就跳转到首页界面进行重新登陆
             if(intervalTime>60*15){
                 new cookiesSelect().cleanCookieAndSession(request,response);

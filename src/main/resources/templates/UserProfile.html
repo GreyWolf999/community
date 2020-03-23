@@ -13,7 +13,7 @@
 <!--   将相同的文件封装 然后在需要的地方直接插入-->
 <div th:insert="~{footer :: nav}"></div>
 <div class="container-fluid">
-<div class="row navp" >
+<div class="row navp" id="nav3" >
     <div class="heads">
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-user" aria-hidden="true" ></span>个人中心</h1>
@@ -39,7 +39,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
 <script th:inline="javascript">
-
+    var screenWidth=window.screen.availWidth;
+    if (screenWidth<500){
+        $("#nav3").attr("class","row navSm");
+    }
     function personalCentral(){
         // 利用jQuery修改按钮选中效果然后加载需要的页面信息
         $("#SelectedItem").attr("class","active list-group-item");
@@ -72,7 +75,7 @@
             success:function (data) {
                 layer.msg(data,{
                     icon:1,
-                    time:2000
+                    time:1500
                 },function () {
 
                 })
@@ -89,7 +92,7 @@
             success:function (data) {
                 layer.msg(data,{
                     icon: 1,
-                    time: 2000
+                    time: 1500
                 }, function(){
                     parent.location.href="/"
                 })

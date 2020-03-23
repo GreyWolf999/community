@@ -9,7 +9,11 @@
 }
 .navp{
     background-color: snow;
-    margin: 20px;
+    margin: 30px;
+}
+.navSm{
+    background-color: snow;
+    margin: 3px;
 }
 .bodys{
     background-color: beige;

@@ -38,6 +38,6 @@ public class myQuestionsController {
         if (token !=null){
            UserQuestion =questionService.getQuestionByToken(page,token);
         }
-        return new datalayout().getDataLayout(questionService.getPages(),UserQuestion,questionService.getCount());
+        return new datalayout().getDataLayout(questionService.getPagesBySelected(token),UserQuestion,questionService.getCount());
     }
 }

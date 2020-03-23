@@ -13,15 +13,15 @@
 <!--   将相同的文件封装 然后在需要的地方直接插入-->
 <div th:insert="~{footer :: nav}"></div>
 <div class="container-fluid">
-<div class="row navp">
+<div class="row navp" id="nav1">
     <div class="heads">
-    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-list" aria-hidden="true" ></span>发现</h1>
         <hr>
         <!--            流加载部分-->
-        <ul class="flow-default" id="LAY_demo1"></ul>
+        <div class="flow-default" id="LAY_demo1"></div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <h1 class="fontfa"><span class="glyphicon glyphicon-tags" aria-hidden="true" ></span>热门话题</h1>
         <div class="topicList">
             <div class="media" th:each="topicQuestion:${TopicQuestion}">
@@ -39,6 +39,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
 <script th:inline="javascript">
+    var screenWidth=window.screen.availWidth;
+    var screenHeight=window.screen.availHeight;
+    // 通过获取当前浏览器的高宽来进行简单的识别设备屏幕大小
+if (screenWidth<500) {
+    $("#nav1").attr("class","navSm row");
+    $("#login").attr("href","/goSmLogin");
+    $("#register").attr("href","/goSmRegister");
+}else {
+    doLogin();
+    doRegister();
+}
+
     layui.use('layer', function(){
         var layer = layui.layer;
         //判断是否在有效期登陆过
@@ -64,7 +76,7 @@
                 $.get('/data?page='+page, function(res){
                     //假设你的列表返回在data集合中
                     layui.each(res.data, function(index, item){
-                        lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
+                        lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" id="imageId1" src='
                             +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check?title='+item.title+'"'+' class="question">'
                             +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
                             +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
@@ -75,26 +87,63 @@
             }
         });
     });
+    function doSearch()
+    {
+        $("#LAY_demo1").empty();
+        layui.use('flow', function(){
+            var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+            var flow = layui.flow;
+            flow.load({
+                elem: '#LAY_demo1' //指定列表容器
+                ,end:'臣妾满足不了您了'
+                ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                    var lis = [];
+                    var search=$("#searchId").val();
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.ajax({
+                        url:"/search?page="+page,
+                        type:"POST",
+                        sync:false,
+                        data:{search:search},
+                        success:function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function(index, item){
+                                lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
+                                    +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check?title='+item.title+'"'+' class="question">'
+                                    +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
+                                    +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
+                                    +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.likeCount+'人点赞·</span><span th:text="${checkselectedQuestion.getCommentCount()}"></span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');
+                            });
+                            next(lis.join(''), page <res.pages);
+                        }
+                    });
+                }
+            });
+        });
+    }
     function shut(){
         $(".layui-layer-close1").trigger('click');
     }
-    $('#login').on('click', function(){
-        layer.open({
-            type:2
-            ,title:'登陆框'
-            ,content:['/goLogin','no',]
-            ,area: ['500px', '62%']
-            ,shadeClose:true
-            ,offset: 'auto'
-            , zIndex: layer.zIndex
-            , success: function (layero) {
-                layer.setTop(layero); //重点2
-            },
-            end: function () {
-                window.location.reload();
-            }
+    function doLogin() {
+        $('#login').on('click', function () {
+            layer.open({
+                type: 2
+                , title: '登陆框'
+                , content: ['/goLogin', 'no']
+                , area: ['500px', '60%']
+                , shadeClose: true
+                , offset: 'auto'
+                , zIndex: layer.zIndex
+                , success: function (layero) {
+                    layer.setTop(layero); //重点2
+                },
+                end: function () {
+                    window.location.reload();
+                }
+            });
         });
-    });
+    }
+    function doRegister(){
     $('#register').on('click', function(){
         layer.open({
             type:2
@@ -105,6 +154,7 @@
             ,offset: 'auto'
         });
     });
+    }
     // 注销
     function doLogout() {
         $.ajax({
@@ -114,7 +164,7 @@
             success:function (data) {
                 layer.msg(data,{
                     icon: 1,
-                    time: 2000
+                    time: 1500
                 }, function(){
                     parent.location.href="/"
                 })

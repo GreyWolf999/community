@@ -19,7 +19,11 @@
 }
 .navp{
     background-color: snow;
-    margin: 20px;
+    margin: 30px;
+}
+.navSm{
+    background-color: snow;
+    margin: 3px;
 }
 .glyphicon-user:before{
     padding-right: 10px;
@@ -54,10 +58,10 @@
     font-family: cursive;
 }
 .imageT{
-    width: 70px;
-    height: 70px;
-    border-radius: 15%;
-}
+     width: 70px;
+     height: 70px;
+     border-radius: 15%;
+ }
 .textpei{
     margin-left: 20px;
     padding-top: 20px;

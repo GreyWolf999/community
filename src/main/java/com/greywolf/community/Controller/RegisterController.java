@@ -27,6 +27,10 @@ public class RegisterController {
     public String goRegister(){
         return "Register";
     }
+    @GetMapping("/goSmRegister")
+    public String goSmRegister(){
+        return "smRegister";
+    }
     @PostMapping("/goRegister")
     @ResponseBody
     public String doRegister(user userData){

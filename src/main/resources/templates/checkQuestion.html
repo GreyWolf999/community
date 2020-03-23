@@ -14,25 +14,26 @@
 <!--   将相同的文件封装 然后在需要的地方直接插入-->
 <div th:insert="~{footer :: nav}"></div>
 <div class="container-fluid">
-<div class="row navp" >
+<div class="row navp" id="navId" >
     <div class="heads">
     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
         <div>
                <a href="#">
-                    <img class="media-object imageT"th:src="${checkselectedQuestion.getAvatarUrl()}" >
+                    <img class="media-object imageT" id="imageId" th:src="${checkselectedQuestion.getAvatarUrl()}" >
                 </a>
-                <div class="checkTitle">
-                <h4 class="media-heading question" th:text="${checkselectedQuestion.getTitle()}"></h4><br>
-                <h4 class="tagdiy" th:text="${checkselectedQuestion.getTag()}"></h4><br>
-                    <span><span th:text="${checkselectedQuestion.getCommentCount()}"></span>个回复 • <span th:text="${checkselectedQuestion.getViewCount()}"></span>次浏览
-                        •<span th:text="${checkselectedQuestion.getLikeCount()}">人点赞·</span><span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
+
+                <div class="checkTitle" id="checkTileId">
+                <h4 id="titleId" class="media-heading question"  th:text="${checkselectedQuestion.getTitle()}"></h4><br>
+                <h4 id="tagId" class="tagdiy" th:text="${checkselectedQuestion.getTag()}"></h4><br>
+                    <span id="testId"><span th:text="${checkselectedQuestion.getCommentCount()}"></span>个回复 • <span th:text="${checkselectedQuestion.getViewCount()}"></span>次浏览
+                        •<span th:text="${checkselectedQuestion.getLikeCount()}">人点赞·</span><span th:text="${#dates.format(checkselectedQuestion.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span></span><br>
                     <input type="hidden" id="hiddenId" th:value="${checkselectedQuestion.getId()}">
                 </div>
                 <div class="layui-input-block">
                     <textarea name="desc" id="commentByOther" class="layui-textarea textarealayui" readonly>[[${checkselectedQuestion.getDescription()}]]</textarea>
                 </div>
         </div>
-        <hr>
+        <br>
         <span class="comment"><span>评论</span><span href="#" class="dianzan">点赞</span></span><img class="likeIcon"  th:src="@{images/点赞图标.jpg}" id="likeIcon">
         <div class="layui-input-block">
             <textarea id="comments"  class="layui-textarea commentByOther"></textarea>
@@ -42,11 +43,11 @@
         <div class="media commentList" th:each="comentList:${comentDtoList}">
             <div class="media-left media-middle" style="padding-left: 8px">
                 <a href="#">
-                    <img class="media-object imageT" th:src="${comentList.getAvatarUrl()}">
+                    <img class="media-object imageT3" th:src="${comentList.getAvatarUrl()}">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading" style="margin-top: 11px" th:text="${comentList.getComment()}"></h4>
+                <h4 class="media-heading" th:text="${comentList.getComment()}"></h4>
                 <br>
                 <span>点赞·<span th:text="${#dates.format(comentList.getGmcreatc(),'yyyy-MM-dd HH:mm:ss')}"></span></span>
                 <br>
@@ -73,6 +74,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
 <script th:inline="javascript">
+    var screenWidth=window.screen.availWidth;
+    if (screenWidth<500){
+        $("#checkTileId").removeClass("checkTitle");
+        $("#navId").attr("class","navSm row")
+        $("#titleId").css("margin-top","10px");
+        $("#imageId").attr("class","imageT2");
+    }
     layui.use('layer', function(){
         var layer = layui.layer;
     });
@@ -88,7 +96,7 @@
             success:function (data) {
                 layer.msg(data,{
                     icon: 1,
-                    time: 2000
+                    time: 1500
                 }, function(){
                     parent.location.href="/"
                 })
@@ -120,29 +128,5 @@
            }
        })
    })
-
-    // layui.use('flow', function(){
-    //     var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
-    //     var flow = layui.flow;
-    //     flow.load({
-    //         elem: '#commentList' //指定列表容器
-    //         ,end:'<div class="commentText">抱歉亲 占时没有评论</div>'
-    //         ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-    //             var lis = [];
-    //             //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-    //             $.post('/?page='+page, function(res){
-    //                 //假设你的列表返回在data集合中
-    //                 layui.each(res.data, function(index, item){
-    //                     // lis.push('<div class="media"><div class="media-left media-middle"><a href="#"><img class="media-object imageT" src='
-    //                     //     +item.avatarUrl+'></a></div>'+'<div class="media-body textpei"><a href="/check?title='+item.title+'"'+' class="question">'
-    //                     //     +item.title+'</a><h4 class="tagdiy">'+item.tag+'</h4><br><span class="labersty">'
-    //                     //     +item.commentCount+'</span><span class="labersty">个回复 •</span><span>'
-    //                     //     +item.viewCount+'</span><span class="labersty">次浏览•</span><span class="labersty">'+item.gmtCreate+'</span></span><hr></div></div>');
-    //                 });
-    //                 next(lis.join(''), page <res.pages);
-    //             });
-    //         }
-    //     });
-    // })
 </script>
 </body>

@@ -23,6 +23,7 @@ import java.util.List;
 
 @Service
 public class QuestionImpl implements QuestionService {
+    Date date=new Date();
     private final Integer number=0;
     private Integer idPrimy;
     @Autowired
@@ -60,7 +61,6 @@ public class QuestionImpl implements QuestionService {
             example.createCriteria().andTokenEqualTo(UserQuestion.getCreator());
             List<user> users = userMapper.selectByExample(example);
             user userData =users.get(0);
-//            userQuestionDTO.setAvatarUrl("images/"+userData.getAvatarurl());
             userQuestionDTO.setAvatarUrl(userData.getAvatarurl());
             //将毫秒值转化成日期
             date.setTime(UserQuestion.getGmtcreate());
@@ -74,6 +74,28 @@ public class QuestionImpl implements QuestionService {
     @Override
     public int getCount(){
         return (int)questionMapper.countByExample(new questionExample());
+    }
+    @Override
+    public int getPagesBySelected(String token){
+        questionExample example = new questionExample();
+        example.createCriteria().andCreatorEqualTo(token);
+        int count = (int)questionMapper.countByExample(example);
+        if (count%5==0){
+            return count/5;
+        }else return count/5+1;
+    }
+    @Override
+    public int getPagesBySelectedByTag(String tag){
+        int count= getCountByTag(tag);
+        if (count%5==0){
+            return count/5;
+        }else return count/5+1;
+    }
+    @Override
+    public int getCountByTag(String tag){
+        questionExample example = new questionExample();
+        example.createCriteria().andTagLike("%"+tag+"%");
+        return (int)questionMapper.countByExample(example);
     }
     @Override
     public int getPages(){
@@ -185,6 +207,67 @@ public class QuestionImpl implements QuestionService {
             questionTopic.add(questions.get(i));
         }
         return questionTopic;
+    }
+//    模糊查询方法
+    @Override
+    public List<UserQuestionDTO > searchQuestionByTag(String tag){
+        List<UserQuestionDTO> list=new ArrayList<>();
+        questionExample example = new questionExample();
+        example.setOrderByClause("gmtcreate DESC");
+        example.createCriteria().andTagLike("%"+tag+"%");
+        List<question> questions = questionMapper.selectByExample(example);
+        for (question Question:questions) {
+            UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
+            userExample example1 = new userExample();
+            example1.createCriteria().andTokenEqualTo(Question.getCreator());
+            List<user> users = userMapper.selectByExample(example1);
+            BeanUtils.copyProperties(Question,userQuestionDTO);
+            date.setTime(Question.getGmtcreate());
+            userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+            userQuestionDTO.setAvatarUrl(users.get(0).getAvatarurl());
+            list.add(userQuestionDTO);
+        }
+        return list;
+    }
+    @Override
+    public List<UserQuestionDTO > searchQuestionByTitle(String title){
+        List<UserQuestionDTO> list=new ArrayList<>();
+        questionExample example = new questionExample();
+        example.setOrderByClause(" gmtcreate DESC");
+        example.createCriteria().andTitleLike("%"+title+"%");
+        List<question> questions = questionMapper.selectByExample(example);
+        for (question Question:questions) {
+            UserQuestionDTO userQuestionDTO=new UserQuestionDTO();
+            userExample example1 = new userExample();
+            example1.createCriteria().andTokenEqualTo(Question.getCreator());
+            List<user> users = userMapper.selectByExample(example1);
+            BeanUtils.copyProperties(Question,userQuestionDTO);
+            date.setTime(Question.getGmtcreate());
+            userQuestionDTO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+            userQuestionDTO.setAvatarUrl(users.get(0).getAvatarurl());
+            list.add(userQuestionDTO);
+        }
+        return list;
+    }
+    @Override
+    public List<UserQuestionDTO> searchSelect(String search){
+        List<UserQuestionDTO> listd=new ArrayList<>();
+        List<UserQuestionDTO> list = searchQuestionByTag(search);
+        List<UserQuestionDTO> list2 = searchQuestionByTitle(search);
+//        根据tag和title关键字查询出的数据进行筛选
+        if (!list.isEmpty() || !list2.isEmpty()){
+          listd.addAll(list2);
+          listd.addAll(list);
+//          将集合中相同的元素移除
+            for ( int i = 0 ; i < listd.size() - 1 ; i ++ ) {
+                for ( int j = listd.size() - 1 ; j > i; j -- ) {
+                    if (listd.get(j).equals(listd.get(i))) {
+                        listd.remove(j);
+                    }
+                }
+            }
+           }
+        return listd;
     }
     //用来清除更新了相关属性的缓存
 //    @CacheEvict(value = "questionList",allEntries = true)

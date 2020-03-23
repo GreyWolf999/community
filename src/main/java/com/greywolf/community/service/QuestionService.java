@@ -10,6 +10,12 @@ public interface QuestionService {
      List<UserQuestionDTO> doshow(int first);
      int getCount();
 
+    int getPagesBySelected(String token);
+
+    int getPagesBySelectedByTag(String tag);
+
+    int getCountByTag(String tag);
+
     int getPages();
 
     List<UserQuestionDTO> getQuestionByToken(int page, String token);
@@ -32,6 +38,14 @@ public interface QuestionService {
     question selectByPrimyId(Integer PrimyId);
 
     List<question> getTopicQuestion();
+
+    //    模糊查询方法
+    List<UserQuestionDTO > searchQuestionByTag(String tag);
+
+    List<UserQuestionDTO > searchQuestionByTitle(String title);
+
+
+    List<UserQuestionDTO> searchSelect(String search);
 
 //    //用来清除更新了相关属性的缓存
 //     void cleanCache();

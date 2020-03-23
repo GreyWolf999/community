@@ -26,6 +26,11 @@
         </div>
     </div>
 <script>
+    var screenWidth=window.screen.availWidth;
+    if (screenWidth < 500) {
+        $("#PersonText").css("width","100%")
+        $("#PasswordText").css("width","100%")
+    }
         var index=layui.use('upload', function(){
             var $ = layui.jquery
                 ,upload = layui.upload;

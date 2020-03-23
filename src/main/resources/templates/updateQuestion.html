@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>我的发布</title>
-    <script src="webjars/jquery/3.4.0/jquery.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{webjars/layui/2.5.4/css/layui.css}">
     <link rel="stylesheet" href="MyCss/publish.css">
+    <style>
+        .layui-icon{
+            font-size: 36px;
+        }
+    </style>
 </head>
 <body class="bodysd">
     <div  th:insert="~{footer :: nav}"></div>
     <div class="container-fluid">
-    <div class="row navp" >
+    <div class="row navp" id="nav2">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h1 class="lab"><i class="layui-icon layui-icon-add-1 iconSize"></i>发起提问</h1>
             <hr>
@@ -42,10 +49,14 @@
     </div>
     </div>
 </div>
-<script src="webjars/jquery/3.4.0/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-<script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
+    <script src="webjars/jquery/3.4.0/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script th:src="@{webjars/layui/2.5.4/layui.js}"></script>
 <script>
+    var screenWidth=window.screen.availWidth;
+    if (screenWidth < 500) {
+        $("#nav2").attr("class","navSm row")
+    }
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('layer', function(){
         var layer = layui.layer;
@@ -58,7 +69,7 @@
             success:function (data) {
                 layer.msg(data,{
                     icon: 1,
-                    time: 2000
+                    time: 1500
                 }, function(){
                     parent.location.href="/"
                 })
